@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE05E379297797A8003C578B /* AppService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E378297797A8003C578B /* AppService.swift */; };
+		CE05E37B2977980C003C578B /* AppRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E37A2977980C003C578B /* AppRequest.swift */; };
+		CE05E37D29779848003C578B /* AppEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E37C29779848003C578B /* AppEndpoint.swift */; };
+		CE05E37F29779C1A003C578B /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E37E29779C1A003C578B /* Episode.swift */; };
+		CE05E38329779FB9003C578B /* CharaterOrigin.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E38229779FB9003C578B /* CharaterOrigin.swift */; };
+		CE05E3852977A056003C578B /* SingleLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E3842977A056003C578B /* SingleLocation.swift */; };
+		CE05E3892977A1F1003C578B /* CharacterGender.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E3882977A1F1003C578B /* CharacterGender.swift */; };
+		CE05E38B2977A20A003C578B /* CharaterStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E38A2977A20A003C578B /* CharaterStatus.swift */; };
 		CE519A0D2969D3F1006EB488 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE519A0C2969D3F1006EB488 /* Location.swift */; };
 		CE519A0F2969D42A006EB488 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE519A0E2969D42A006EB488 /* Character.swift */; };
 		CE519A122969D524006EB488 /* CharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE519A112969D524006EB488 /* CharacterViewController.swift */; };
@@ -21,6 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE05E378297797A8003C578B /* AppService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppService.swift; sourceTree = "<group>"; };
+		CE05E37A2977980C003C578B /* AppRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRequest.swift; sourceTree = "<group>"; };
+		CE05E37C29779848003C578B /* AppEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEndpoint.swift; sourceTree = "<group>"; };
+		CE05E37E29779C1A003C578B /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
+		CE05E38229779FB9003C578B /* CharaterOrigin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharaterOrigin.swift; sourceTree = "<group>"; };
+		CE05E3842977A056003C578B /* SingleLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLocation.swift; sourceTree = "<group>"; };
+		CE05E3882977A1F1003C578B /* CharacterGender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterGender.swift; sourceTree = "<group>"; };
+		CE05E38A2977A20A003C578B /* CharaterStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharaterStatus.swift; sourceTree = "<group>"; };
 		CE519A0C2969D3F1006EB488 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE519A0E2969D42A006EB488 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		CE519A112969D524006EB488 /* CharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +73,9 @@
 		CE519A092969D2DD006EB488 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				CE05E378297797A8003C578B /* AppService.swift */,
+				CE05E37A2977980C003C578B /* AppRequest.swift */,
+				CE05E37C29779848003C578B /* AppEndpoint.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -107,6 +126,11 @@
 			children = (
 				CE519A0C2969D3F1006EB488 /* Location.swift */,
 				CE519A0E2969D42A006EB488 /* Character.swift */,
+				CE05E37E29779C1A003C578B /* Episode.swift */,
+				CE05E38229779FB9003C578B /* CharaterOrigin.swift */,
+				CE05E3842977A056003C578B /* SingleLocation.swift */,
+				CE05E3882977A1F1003C578B /* CharacterGender.swift */,
+				CE05E38A2977A20A003C578B /* CharaterStatus.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -202,13 +226,21 @@
 			files = (
 				CE519A122969D524006EB488 /* CharacterViewController.swift in Sources */,
 				CE519A142969D583006EB488 /* LocationViewController.swift in Sources */,
+				CE05E37D29779848003C578B /* AppEndpoint.swift in Sources */,
 				CEF0E91C29687F1500C81FC9 /* MainTabViewController.swift in Sources */,
 				CEF0E91829687F1500C81FC9 /* AppDelegate.swift in Sources */,
 				CE519A162969D5A5006EB488 /* EpisodesViewController.swift in Sources */,
 				CE519A0F2969D42A006EB488 /* Character.swift in Sources */,
+				CE05E37F29779C1A003C578B /* Episode.swift in Sources */,
 				CE519A0D2969D3F1006EB488 /* Location.swift in Sources */,
+				CE05E3852977A056003C578B /* SingleLocation.swift in Sources */,
+				CE05E38B2977A20A003C578B /* CharaterStatus.swift in Sources */,
+				CE05E379297797A8003C578B /* AppService.swift in Sources */,
 				CEF0E91A29687F1500C81FC9 /* SceneDelegate.swift in Sources */,
+				CE05E3892977A1F1003C578B /* CharacterGender.swift in Sources */,
 				CE519A182969D5FD006EB488 /* SettingsViewController.swift in Sources */,
+				CE05E37B2977980C003C578B /* AppRequest.swift in Sources */,
+				CE05E38329779FB9003C578B /* CharaterOrigin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
