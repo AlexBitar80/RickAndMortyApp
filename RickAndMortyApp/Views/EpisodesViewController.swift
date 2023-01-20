@@ -19,7 +19,7 @@ final class EpisodesViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Episodes"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
     }
     
     // MARK: - Helpers

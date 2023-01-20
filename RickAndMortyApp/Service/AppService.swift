@@ -12,7 +12,12 @@ final class AppService {
     
     private init() {}
     
-    public func execute(_ request: AppRequest, completion: @escaping () -> Void) {
+    public func execute<T: Codable>(_ request: AppRequest,
+                                    expecting type: T.Type,
+                                    completion: @escaping (Result<T, Error>) -> Void) {
+        
         
     }
+    
+    
 }

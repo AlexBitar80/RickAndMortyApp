@@ -19,7 +19,7 @@ final class SettingsViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Settings"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
     }
     
     // MARK: - Helpers
