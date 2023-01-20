@@ -19,7 +19,7 @@ final class LocationViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Locations"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
     }
     
     // MARK: - Helpers
