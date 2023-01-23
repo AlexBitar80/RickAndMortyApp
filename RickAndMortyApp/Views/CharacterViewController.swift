@@ -20,28 +20,17 @@ final class CharacterViewController: UIViewController {
 
         title = "Characters"
         view.backgroundColor = .systemBackground
-        
-//        let request = AppRequest(
-//            endpoint: .character,
-//            queryParameters: [
-//                URLQueryItem(name: "name", value: "rick"),
-//                URLQueryItem(name: "status", value: "alive")
-//            ]
-//        )
-//
-//        print(request.url)
-//
-//        AppService.shared.execute(request, expecting: Character.self) { result in
-//            switch result {
-//            case .success(let success):
-//                print(success)
-//            case .failure(let failure):
-//
-//            }
-//        }
+       
+        AppService.shared.execute(.listCharacterRequests,
+                                  expecting: GetAllCharacterResponse.self) { result in
+            switch result {
+            case .success(let model):
+                print(String(describing: model))
+            case .failure(let error):
+                print(String(describing: error))
+            }
+        }
     }
     
     // MARK: - Helpers
-    
-    
 }

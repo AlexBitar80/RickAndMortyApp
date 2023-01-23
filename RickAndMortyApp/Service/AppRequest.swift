@@ -15,7 +15,7 @@ final class AppRequest {
     
     private let endpoint: AppEndpoint
     
-    private let pathComponents: Set<String>
+    private let pathComponents: [String]
     
     private let queryParameters: [URLQueryItem]
     
@@ -52,9 +52,13 @@ final class AppRequest {
         return URL(string: urlString)
     }
 
-    public init(endpoint: AppEndpoint, pathComponents: Set<String> = [], queryParameters: [URLQueryItem] = []) {
+    public init(endpoint: AppEndpoint, pathComponents: [String] = [], queryParameters: [URLQueryItem] = []) {
         self.endpoint = endpoint
         self.pathComponents = pathComponents
         self.queryParameters = queryParameters
     }
+}
+
+extension AppRequest {
+    static let listCharacterRequests = AppRequest(endpoint: .character)
 }

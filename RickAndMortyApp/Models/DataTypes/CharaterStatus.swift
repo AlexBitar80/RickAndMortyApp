@@ -10,5 +10,5 @@ import Foundation
 enum CharacterStatus: String, Codable {
     case alive = "Alive"
     case dead = "Dead"
-    case unknown = "Unknown"
+    case unknown = "unknown"
 }
