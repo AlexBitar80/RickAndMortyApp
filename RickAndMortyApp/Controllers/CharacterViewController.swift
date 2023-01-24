@@ -20,7 +20,6 @@ final class CharacterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         title = "Characters"
         view.backgroundColor = .systemBackground
         configureUI()

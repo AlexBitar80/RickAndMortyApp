@@ -19,6 +19,8 @@
 		CE4DB3C8297EDE3000CE4EB4 /* CharacterListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB3C7297EDE3000CE4EB4 /* CharacterListViewViewModel.swift */; };
 		CE4DB3CB297EEF5D00CE4EB4 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB3CA297EEF5D00CE4EB4 /* CharacterListView.swift */; };
 		CE4DB3D2297F248900CE4EB4 /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB3D1297F248900CE4EB4 /* UIView + Extensions.swift */; };
+		CE4DB3D4297F7FD000CE4EB4 /* CharacterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB3D3297F7FD000CE4EB4 /* CharacterCollectionViewCell.swift */; };
+		CE4DB3D6297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB3D5297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift */; };
 		CE519A0D2969D3F1006EB488 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE519A0C2969D3F1006EB488 /* Location.swift */; };
 		CE519A0F2969D42A006EB488 /* MRCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE519A0E2969D42A006EB488 /* MRCharacter.swift */; };
 		CE519A122969D524006EB488 /* CharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE519A112969D524006EB488 /* CharacterViewController.swift */; };
@@ -45,6 +47,8 @@
 		CE4DB3C7297EDE3000CE4EB4 /* CharacterListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewViewModel.swift; sourceTree = "<group>"; };
 		CE4DB3CA297EEF5D00CE4EB4 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
 		CE4DB3D1297F248900CE4EB4 /* UIView + Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extensions.swift"; sourceTree = "<group>"; };
+		CE4DB3D3297F7FD000CE4EB4 /* CharacterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCollectionViewCell.swift; sourceTree = "<group>"; };
+		CE4DB3D5297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCollectionViewCelltViewViewModel.swift; sourceTree = "<group>"; };
 		CE519A0C2969D3F1006EB488 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE519A0E2969D42A006EB488 /* MRCharacter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRCharacter.swift; sourceTree = "<group>"; };
 		CE519A112969D524006EB488 /* CharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				CE4DB3C7297EDE3000CE4EB4 /* CharacterListViewViewModel.swift */,
+				CE4DB3D5297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -194,6 +199,7 @@
 			isa = PBXGroup;
 			children = (
 				CE4DB3CA297EEF5D00CE4EB4 /* CharacterListView.swift */,
+				CE4DB3D3297F7FD000CE4EB4 /* CharacterCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -282,12 +288,14 @@
 				CE519A0D2969D3F1006EB488 /* Location.swift in Sources */,
 				CE05E3852977A056003C578B /* SingleLocation.swift in Sources */,
 				CE05E38B2977A20A003C578B /* CharaterStatus.swift in Sources */,
+				CE4DB3D6297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift in Sources */,
 				CE05E379297797A8003C578B /* AppService.swift in Sources */,
 				CEF0E91A29687F1500C81FC9 /* SceneDelegate.swift in Sources */,
 				CE05E3892977A1F1003C578B /* CharacterGender.swift in Sources */,
 				CE519A182969D5FD006EB488 /* SettingsViewController.swift in Sources */,
 				CE05E37B2977980C003C578B /* AppRequest.swift in Sources */,
 				CE4DB3C8297EDE3000CE4EB4 /* CharacterListViewViewModel.swift in Sources */,
+				CE4DB3D4297F7FD000CE4EB4 /* CharacterCollectionViewCell.swift in Sources */,
 				CE05E38329779FB9003C578B /* CharaterOrigin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -427,6 +435,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LFHK2L5V9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RickAndMortyApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -434,6 +443,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -454,6 +464,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LFHK2L5V9K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RickAndMortyApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -461,6 +472,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

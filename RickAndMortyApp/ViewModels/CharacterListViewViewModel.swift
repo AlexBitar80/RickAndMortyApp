@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class CharactarListViewViewModel: NSObject {
+final class CharacterListViewViewModel: NSObject {
     func fetchCharacters() {
         AppService.shared.execute(.listCharacterRequests,
                                   expecting: GetAllCharacterResponse.self) { result in
@@ -22,16 +22,20 @@ final class CharactarListViewViewModel: NSObject {
     }
 }
 
-extension CharactarListViewViewModel: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension CharacterListViewViewModel: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 20
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionViewCell",
-                                                      for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionViewCell.cellIdentifier,
+                                                            for: indexPath) as? CharacterCollectionViewCell else { return UICollectionViewCell() }
 
-        cell.backgroundColor = .systemGreen
+        let viewModel = CharacterCollectionViewCelltViewViewModel(characterName: "Alexandre",
+                                                                  characterStatus: .alive,
+                                                                  characterImageUrl: nil)
+        
+        cell.configure(with: viewModel)
         return cell
     }
     

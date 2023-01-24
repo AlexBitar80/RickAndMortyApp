@@ -11,7 +11,7 @@ final class CharacterListView: UIView {
 
     // MARK: - Properties
     
-    private let viewModel = CharactarListViewViewModel()
+    private let viewModel = CharacterListViewViewModel()
     
     private lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
@@ -28,8 +28,8 @@ final class CharacterListView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isHidden = true
         collectionView.alpha = 0
-        collectionView.register(UICollectionViewCell.self,
-                                forCellWithReuseIdentifier: "collectionViewCell")
+        collectionView.register(CharacterCollectionViewCell.self,
+                                forCellWithReuseIdentifier: CharacterCollectionViewCell.cellIdentifier)
         return collectionView
     }()
     
@@ -40,8 +40,8 @@ final class CharacterListView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         configureUI()
-        setupConstraints()
         setupCollectionView()
+        setupConstraints()
         spinner.startAnimating()
         viewModel.fetchCharacters()
     }
@@ -55,7 +55,7 @@ final class CharacterListView: UIView {
     // MARK: - Helpers
     
     private func configureUI() {
-        addSubviews(spinner, collectionView)
+        addSubviews(collectionView, spinner)
     }
     
     private func setupConstraints() {
@@ -73,8 +73,8 @@ final class CharacterListView: UIView {
     }
     
     private func setupCollectionView() {
-        collectionView.delegate = viewModel
         collectionView.dataSource = viewModel
+        collectionView.delegate = viewModel
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
             self.spinner.stopAnimating()
