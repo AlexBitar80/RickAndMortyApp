@@ -10,7 +10,7 @@ import UIKit
 final class CharacterListView: UIView {
 
     // MARK: - Properties
-    
+
     private let viewModel = CharacterListViewViewModel()
     
     private lazy var spinner: UIActivityIndicatorView = {
@@ -40,10 +40,11 @@ final class CharacterListView: UIView {
         translatesAutoresizingMaskIntoConstraints = false
         
         configureUI()
+        spinner.startAnimating()
+        viewModel.delegate = self
+        viewModel.fetchCharacters()
         setupCollectionView()
         setupConstraints()
-        spinner.startAnimating()
-        viewModel.fetchCharacters()
     }
     
     // MARK: - Service
@@ -75,16 +76,19 @@ final class CharacterListView: UIView {
     private func setupCollectionView() {
         collectionView.dataSource = viewModel
         collectionView.delegate = viewModel
+    }
+}
+
+// MARK: - CharacterListViewViewModelDelegate
+
+extension CharacterListView: CharacterListViewViewModelDelegate {
+    func didLoadInitialCharacters() {
+        spinner.stopAnimating()
+        collectionView.isHidden = false
+        collectionView.reloadData() // Initial fetch character
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
-            self.spinner.stopAnimating()
-            
-            self.collectionView.isHidden = false
-            
-            
-            UIView.animate(withDuration: 0.4) {
-                self.collectionView.alpha = 1
-            }
-        })
+        UIView.animate(withDuration: 0.4) {
+            self.collectionView.alpha = 1
+        }
     }
 }
