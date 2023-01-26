@@ -23,10 +23,15 @@ final class CharacterViewController: UIViewController {
         title = "Characters"
         view.backgroundColor = .systemBackground
         configureUI()
+        setupDelegate()
         setupConstraints()
     }
     
     // MARK: - Helpers
+    
+    private func setupDelegate() {
+        characterListView.delegate = self
+    }
     
     private func configureUI() {
         view.addSubview(characterListView)
@@ -41,3 +46,17 @@ final class CharacterViewController: UIViewController {
         ])
     }
 }
+
+// MARK: - CharacterListViewDelegate
+
+extension CharacterViewController: CharacterListViewDelegate {
+    func mrCharacterListView(_ characterListView: CharacterListView,
+                             didSelectCharacter character: RMCharacter) {
+        
+        let viewModel = CharacterDetailViewViewModel(character: character)
+        let detailViewController = CharacterDetailViewController(viewModel: viewModel)
+        detailViewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
+ 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MRCharacter: Codable {
+struct RMCharacter: Codable {
     let id: Int?
     let name: String?
     let status: CharacterStatus?

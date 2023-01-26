@@ -9,7 +9,7 @@ import Foundation
 
 struct GetAllCharacterResponse: Codable {
     let info: GetAllCharacterResponseInfo?
-    let results: [MRCharacter]?
+    let results: [RMCharacter]?
 }
 
 struct GetAllCharacterResponseInfo: Codable {
