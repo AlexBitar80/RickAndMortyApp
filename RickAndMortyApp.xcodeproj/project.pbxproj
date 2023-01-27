@@ -35,6 +35,7 @@
 		CEF0E91C29687F1500C81FC9 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0E91B29687F1500C81FC9 /* MainTabViewController.swift */; };
 		CEF0E92129687F1600C81FC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF0E92029687F1600C81FC9 /* Assets.xcassets */; };
 		CEF0E92429687F1600C81FC9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF0E92229687F1600C81FC9 /* LaunchScreen.storyboard */; };
+		CEFA7AD529836A49007030F0 /* FooterLoadingCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFA7AD429836A49007030F0 /* FooterLoadingCollectionReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		CEF0E92029687F1600C81FC9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF0E92329687F1600C81FC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEF0E92529687F1600C81FC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEFA7AD429836A49007030F0 /* FooterLoadingCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterLoadingCollectionReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 				CE4DB3CA297EEF5D00CE4EB4 /* CharacterListView.swift */,
 				CE4DB3D3297F7FD000CE4EB4 /* CharacterCollectionViewCell.swift */,
 				CE9442632981B7D50067C65D /* CharacterDetailView.swift */,
+				CEFA7AD429836A49007030F0 /* FooterLoadingCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				CE05E379297797A8003C578B /* AppService.swift in Sources */,
 				CEF0E91A29687F1500C81FC9 /* SceneDelegate.swift in Sources */,
 				CE05E3892977A1F1003C578B /* CharacterGender.swift in Sources */,
+				CEFA7AD529836A49007030F0 /* FooterLoadingCollectionReusableView.swift in Sources */,
 				CE519A182969D5FD006EB488 /* SettingsViewController.swift in Sources */,
 				CE9442642981B7D50067C65D /* CharacterDetailView.swift in Sources */,
 				CE05E37B2977980C003C578B /* AppRequest.swift in Sources */,

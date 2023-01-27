@@ -19,6 +19,8 @@ final class CharacterListViewViewModel: NSObject {
     
     public weak var delegate: CharacterListViewViewModelDelegate?
     
+    private var isLoadingMoreCharactes: Bool = false
+    
     private var characters: [RMCharacter] = [] {
         didSet {
             for character in characters {
@@ -59,6 +61,7 @@ final class CharacterListViewViewModel: NSObject {
     
     public func fetchAddicitionalCharacters() {
         // TODO - Fetch characters here
+        isLoadingMoreCharactes = true
     }
     
     public var shouldShowLoadMoreIndicator: Bool {
@@ -81,7 +84,39 @@ extension CharacterListViewViewModel: UICollectionViewDelegate, UICollectionView
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        guard kind == UICollectionView.elementKindSectionFooter else {
+            fatalError("Unsupported")
+        }
+        
+        guard let footer = collectionView.dequeueReusableSupplementaryView(
+            ofKind: kind,
+            withReuseIdentifier: "FooterLoadingCollectionReusableView",
+            for: indexPath) as? FooterLoadingCollectionReusableView
+        else {
+            fatalError("Unsupported")
+        }
+        footer.startAnimating()
+        return footer
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForFooterInSection section: Int) -> CGSize {
+        
+        guard shouldShowLoadMoreIndicator else {
+            return .zero
+        }
+        
+        return CGSize(width: collectionView.frame.width, height: 100)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let bounds = UIScreen.main.bounds
         let width = (bounds.width-30)/2
         
@@ -99,8 +134,14 @@ extension CharacterListViewViewModel: UICollectionViewDelegate, UICollectionView
 
 extension CharacterListViewViewModel: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard shouldShowLoadMoreIndicator else { return }
+        guard shouldShowLoadMoreIndicator, !isLoadingMoreCharactes else { return }
         
+        let offset = scrollView.contentOffset.y
+        let totalContentHeight = scrollView.contentSize.height
+        let totalScrollVieFixedHeight = scrollView.frame.size.height
         
+        if offset >= (totalContentHeight - totalScrollVieFixedHeight - 120) {
+            fetchAddicitionalCharacters()
+        }
     }
 }
