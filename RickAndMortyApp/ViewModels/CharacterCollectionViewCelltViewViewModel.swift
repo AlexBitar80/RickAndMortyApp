@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class CharacterCollectionViewCelltViewViewModel {
-
+final class CharacterCollectionViewCelltViewViewModel: Hashable, Equatable {
+    
     // MARK: - Properties
     
     public let characterName: String
@@ -45,5 +45,18 @@ final class CharacterCollectionViewCelltViewViewModel {
             completion(.success(data))
         }
         task.resume()
+    }
+    
+    // MARK: - Hashable
+    
+    static func == (lhs: CharacterCollectionViewCelltViewViewModel,
+                    rhs: CharacterCollectionViewCelltViewViewModel) -> Bool {
+        return lhs.hashValue == rhs.hashValue
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(characterName)
+        hasher.combine(characterStatus)
+        hasher.combine(characterImageUrl)
     }
 }

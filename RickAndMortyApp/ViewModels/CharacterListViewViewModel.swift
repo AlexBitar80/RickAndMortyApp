@@ -10,6 +10,7 @@ import UIKit
 
 protocol CharacterListViewViewModelDelegate: AnyObject {
     func didLoadInitialCharacters()
+    func didLoadMoreCharacters(with newIndexPaths: [IndexPath])
     func didSelectCharacter(_ character: RMCharacter)
 }
 
@@ -31,8 +32,9 @@ final class CharacterListViewViewModel: NSObject {
                 let viewModel = CharacterCollectionViewCelltViewViewModel(characterName: name,
                                                                           characterStatus: status,
                                                                           characterImageUrl: URL(string: image))
-                
-                cellsViewModels.append(viewModel)
+                if !cellsViewModels.contains(viewModel) {
+                    cellsViewModels.append(viewModel)
+                }
             }
         }
     }
@@ -59,9 +61,40 @@ final class CharacterListViewViewModel: NSObject {
         }
     }
     
-    public func fetchAddicitionalCharacters() {
-        // TODO - Fetch characters here
+    public func fetchAddicitionalCharacters(url: URL) {
+        guard !isLoadingMoreCharactes else { return }
+        
         isLoadingMoreCharactes = true
+        guard let request = AppRequest(url: url) else {
+            isLoadingMoreCharactes = false
+            return
+        }
+        
+        AppService.shared.execute(request, expecting: GetAllCharacterResponse.self) { [weak self] resuslt in
+            guard let strongSelf = self else { return }
+            switch resuslt {
+            case .success(let responseModel):
+                guard let moreResults = responseModel.results,
+                      let info = responseModel.info else { return }
+                
+                let originalCount = strongSelf.characters.count
+                let newCount = moreResults.count
+                let total = originalCount+newCount
+                let startingIndex = total - newCount
+                let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newCount)).compactMap({
+                    return IndexPath(row: $0, section: 0)
+                })
+                
+                strongSelf.characters.append(contentsOf: moreResults)
+                strongSelf.apiInfo = info
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
+                    strongSelf.isLoadingMoreCharactes = false
+                }
+            case .failure(let failure):
+                strongSelf.isLoadingMoreCharactes = false
+            }
+        }
     }
     
     public var shouldShowLoadMoreIndicator: Bool {
@@ -134,14 +167,22 @@ extension CharacterListViewViewModel: UICollectionViewDelegate, UICollectionView
 
 extension CharacterListViewViewModel: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard shouldShowLoadMoreIndicator, !isLoadingMoreCharactes else { return }
+        guard shouldShowLoadMoreIndicator,
+              !isLoadingMoreCharactes,
+              !cellsViewModels.isEmpty,
+              let nextUrlString = apiInfo?.next,
+              let url = URL(string: nextUrlString) else { return }
         
-        let offset = scrollView.contentOffset.y
-        let totalContentHeight = scrollView.contentSize.height
-        let totalScrollVieFixedHeight = scrollView.frame.size.height
-        
-        if offset >= (totalContentHeight - totalScrollVieFixedHeight - 120) {
-            fetchAddicitionalCharacters()
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+            let offset = scrollView.contentOffset.y
+            let totalContentHeight = scrollView.contentSize.height
+            let totalScrollVieFixedHeight = scrollView.frame.size.height
+            
+            if offset >= (totalContentHeight - totalScrollVieFixedHeight - 120) {
+                self?.fetchAddicitionalCharacters(url: url)
+            }
+            
+            t.invalidate()
         }
     }
 }

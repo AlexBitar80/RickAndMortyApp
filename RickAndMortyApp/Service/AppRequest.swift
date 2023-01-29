@@ -57,6 +57,47 @@ final class AppRequest {
         self.pathComponents = pathComponents
         self.queryParameters = queryParameters
     }
+    
+    convenience init?(url: URL) {
+        let string = url.absoluteString
+        if !string.contains(Constants.baseUrl) {
+            return nil
+        }
+        
+        let trimed = string.replacingOccurrences(of: Constants.baseUrl+"/", with: "")
+        
+        if trimed.contains("/") {
+            let components = trimed.components(separatedBy: "/")
+            if !components.isEmpty {
+                let endpointString = components[0]
+                if let appEndpoint = AppEndpoint(rawValue: endpointString) {
+                    self.init(endpoint: appEndpoint)
+                    return
+                }
+            }
+        } else if trimed.contains("?") {
+            let components = trimed.components(separatedBy: "?")
+            if !components.isEmpty, components.count >= 2 {
+                let endpointString = components[0]
+                let queryItemsString = components[1]
+                let queryItems: [URLQueryItem] = queryItemsString.components(separatedBy: "&").compactMap({
+                    guard $0.contains("=") else {
+                        return nil
+                    }
+                    let parts = $0.components(separatedBy: "=")
+                    
+                    return URLQueryItem(name: parts[0],
+                                        value: parts[1])
+                })
+                if let appEndpoint = AppEndpoint(rawValue: endpointString) {
+                    self.init(endpoint: appEndpoint, queryParameters: queryItems)
+                    return
+                }
+            }
+        }
+        
+        return nil
+    }
 }
 
 extension AppRequest {
