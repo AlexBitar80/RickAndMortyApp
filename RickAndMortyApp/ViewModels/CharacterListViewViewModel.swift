@@ -89,8 +89,9 @@ final class CharacterListViewViewModel: NSObject {
                 strongSelf.apiInfo = info
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
-                    strongSelf.isLoadingMoreCharactes = false
                 }
+                
+                strongSelf.isLoadingMoreCharactes = false
             case .failure(let failure):
                 strongSelf.isLoadingMoreCharactes = false
             }

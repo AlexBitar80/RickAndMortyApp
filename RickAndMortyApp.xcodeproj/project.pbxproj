@@ -15,6 +15,7 @@
 		CE05E3852977A056003C578B /* SingleLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E3842977A056003C578B /* SingleLocation.swift */; };
 		CE05E3892977A1F1003C578B /* CharacterGender.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E3882977A1F1003C578B /* CharacterGender.swift */; };
 		CE05E38B2977A20A003C578B /* CharaterStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E38A2977A20A003C578B /* CharaterStatus.swift */; };
+		CE16BA00298746B700F4A193 /* AppImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE16B9FF298746B700F4A193 /* AppImageLoader.swift */; };
 		CE4DB3C6297ED10600CE4EB4 /* GetAllCharacterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB3C5297ED10600CE4EB4 /* GetAllCharacterResponse.swift */; };
 		CE4DB3C8297EDE3000CE4EB4 /* CharacterListViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB3C7297EDE3000CE4EB4 /* CharacterListViewViewModel.swift */; };
 		CE4DB3CB297EEF5D00CE4EB4 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4DB3CA297EEF5D00CE4EB4 /* CharacterListView.swift */; };
@@ -47,6 +48,7 @@
 		CE05E3842977A056003C578B /* SingleLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLocation.swift; sourceTree = "<group>"; };
 		CE05E3882977A1F1003C578B /* CharacterGender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterGender.swift; sourceTree = "<group>"; };
 		CE05E38A2977A20A003C578B /* CharaterStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharaterStatus.swift; sourceTree = "<group>"; };
+		CE16B9FF298746B700F4A193 /* AppImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImageLoader.swift; sourceTree = "<group>"; };
 		CE4DB3C5297ED10600CE4EB4 /* GetAllCharacterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllCharacterResponse.swift; sourceTree = "<group>"; };
 		CE4DB3C7297EDE3000CE4EB4 /* CharacterListViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListViewViewModel.swift; sourceTree = "<group>"; };
 		CE4DB3CA297EEF5D00CE4EB4 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		CE519A082969D2C6006EB488 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				CE16B9FF298746B700F4A193 /* AppImageLoader.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				CE519A0D2969D3F1006EB488 /* Location.swift in Sources */,
 				CE05E3852977A056003C578B /* SingleLocation.swift in Sources */,
 				CE9442622981B6E00067C65D /* CharacterDetailViewController.swift in Sources */,
+				CE16BA00298746B700F4A193 /* AppImageLoader.swift in Sources */,
 				CE05E38B2977A20A003C578B /* CharaterStatus.swift in Sources */,
 				CE4DB3D6297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift in Sources */,
 				CE05E379297797A8003C578B /* AppService.swift in Sources */,
