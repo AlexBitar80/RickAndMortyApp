@@ -13,6 +13,8 @@ final class CharacterDetailViewController: UIViewController {
     
     private let viewModel: CharacterDetailViewViewModel
     
+    private let detailView = CharacterDetailView()
+    
     // MARK: - Init
     
     init(viewModel: CharacterDetailViewViewModel) {
@@ -30,6 +32,7 @@ final class CharacterDetailViewController: UIViewController {
         super.viewDidLoad()
 
         configureUI()
+        setupConstraints()
     }
     
     // MARK: - Helpers
@@ -37,5 +40,24 @@ final class CharacterDetailViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .systemBackground
         title = viewModel.title
+        view.addSubview(detailView)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
+                                                            target: self,
+                                                            action: #selector(didTapShare))
+
+    }
+    
+    @objc private func didTapShare() {
+        // TODO: - Share character info
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            detailView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            detailView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            detailView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
     }
 }

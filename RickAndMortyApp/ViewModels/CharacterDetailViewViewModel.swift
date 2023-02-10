@@ -14,8 +14,17 @@ final class CharacterDetailViewViewModel {
         self.character = character
     }
     
+    private var requestUrl: URL? {
+        guard let url = character.url else { return nil }
+        return URL(string: url)
+    }
+    
     public var title: String {
         guard let name = character.name else { return "" }
         return name.uppercased()
     }
+    
+    // MARK: - Helpers
+    
+    
 }
