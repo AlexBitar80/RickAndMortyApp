@@ -73,7 +73,16 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return 8
+        case 2:
+            return 20
+        default:
+            return 1
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
