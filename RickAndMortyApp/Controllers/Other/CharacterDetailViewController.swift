@@ -13,12 +13,13 @@ final class CharacterDetailViewController: UIViewController {
     
     private let viewModel: CharacterDetailViewViewModel
     
-    private let detailView = CharacterDetailView()
+    private let detailView: CharacterDetailView
     
     // MARK: - Init
     
     init(viewModel: CharacterDetailViewViewModel) {
         self.viewModel = viewModel
+        self.detailView = CharacterDetailView(frame: .zero, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,6 +34,9 @@ final class CharacterDetailViewController: UIViewController {
 
         configureUI()
         setupConstraints()
+        
+        detailView.collectionView?.delegate = self
+        detailView.collectionView?.dataSource = self
     }
     
     // MARK: - Helpers
@@ -45,7 +49,6 @@ final class CharacterDetailViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action,
                                                             target: self,
                                                             action: #selector(didTapShare))
-
     }
     
     @objc private func didTapShare() {
@@ -59,5 +62,31 @@ final class CharacterDetailViewController: UIViewController {
             detailView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             detailView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return viewModel.sections.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "characterDetailVieeCell", for: indexPath)
+        
+        if indexPath.section == 0 {
+            cell.backgroundColor = .systemPink
+        } else if indexPath.section == 1 {
+            cell.backgroundColor = .systemGreen
+        } else {
+            cell.backgroundColor = .systemBlue
+        }
+        
+        return cell
     }
 }
