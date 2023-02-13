@@ -10,9 +10,13 @@ import Foundation
 
 final class CharacterEpisodesCollectionViewCellViewModel {
     
+    // MARK: - Properties
+    
+    private let episodeDataUrl: URL?
+    
     // MARK: - Init
     
-    init() {
-        
+    init(episodeDataUrl: URL?) {
+        self.episodeDataUrl = episodeDataUrl
     }
 }

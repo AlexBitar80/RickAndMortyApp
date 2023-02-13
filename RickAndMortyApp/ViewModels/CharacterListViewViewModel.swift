@@ -92,7 +92,7 @@ final class CharacterListViewViewModel: NSObject {
                 }
                 
                 strongSelf.isLoadingMoreCharactes = false
-            case .failure(let failure):
+            case .failure:
                 strongSelf.isLoadingMoreCharactes = false
             }
         }

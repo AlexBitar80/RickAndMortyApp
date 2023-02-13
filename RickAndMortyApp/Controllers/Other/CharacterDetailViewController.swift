@@ -97,7 +97,6 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
                 fatalError()
             }
             cell.configure(with: viewModel)
-            cell.backgroundColor = .systemPink
             return cell
         case .information(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(
@@ -107,7 +106,6 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
                 fatalError()
             }
             cell.configure(with: viewModels[indexPath.row])
-            cell.backgroundColor = .systemBlue
             return cell
         case .episodes(let viewModels):
             guard let cell = collectionView.dequeueReusableCell(
@@ -117,7 +115,6 @@ extension CharacterDetailViewController: UICollectionViewDelegate, UICollectionV
                 fatalError()
             }
             cell.configure(with: viewModels[indexPath.row])
-            cell.backgroundColor = .systemOrange
             return cell
         }
     }

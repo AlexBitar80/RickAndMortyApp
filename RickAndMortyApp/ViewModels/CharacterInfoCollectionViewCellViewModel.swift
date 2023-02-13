@@ -10,9 +10,15 @@ import Foundation
 
 final class CharacterInfoCollectionViewCellViewModel {
     
+    // MARK: - Properties
+    
+    public let value: String
+    public let title: String
+    
     // MARK: - Init
     
-    init() {
-        
+    init(value: String, title: String) {
+        self.value = value
+        self.title = title
     }
 }

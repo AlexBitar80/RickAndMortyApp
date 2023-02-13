@@ -34,20 +34,33 @@ final class CharacterDetailViewViewModel {
     // MARK: - Helpers
     
     private func setupSections() {
+        guard let image = character.image,
+              let episodes = character.episode,
+              let statusText = character.status?.text,
+              let genderText = character.gender?.rawValue,
+              let typeText = character.type,
+              let speciesText = character.species,
+              let originText = character.origin?.name,
+              let locationText = character.location?.name,
+              let createdText = character.created
+        else { return }
+        
+        
         sections = [
-            .photo(viewModel: .init()),
+            .photo(viewModel: .init(imageUrl: URL(string: image))),
             .information(viewModels: [
-                .init(),
-                .init(),
-                .init(),
-                .init()
+                .init(value: statusText, title: "Status"),
+                .init(value: genderText, title: "Gender"),
+                .init(value: typeText, title: "Type"),
+                .init(value: speciesText, title: "Species"),
+                .init(value: originText, title: "Origin"),
+                .init(value: locationText, title: "Location"),
+                .init(value: createdText, title: "Created"),
+                .init(value: "\(character.episode?.count ?? 0)", title: "Total Episodes"),
             ]),
-            .episodes(viewModels: [
-                .init(),
-                .init(),
-                .init(),
-                .init()
-            ]),
+            .episodes(viewModels: episodes.compactMap ({
+                return CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: $0))
+            }))
         ]
     }
     
@@ -83,9 +96,9 @@ final class CharacterDetailViewViewModel {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),
                                                                              heightDimension: .fractionalHeight(1.0)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 2,
-                                                        leading: 2,
-                                                        bottom: 2,
-                                                        trailing: 2)
+                                                     leading: 2,
+                                                     bottom: 2,
+                                                     trailing: 2)
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                                         heightDimension: .absolute(150)),
@@ -99,9 +112,9 @@ final class CharacterDetailViewViewModel {
         let item = NSCollectionLayoutItem(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                                              heightDimension: .fractionalHeight(1.0)))
         item.contentInsets = NSDirectionalEdgeInsets(top: 10,
-                                                        leading: 5,
-                                                        bottom: 10,
-                                                        trailing: 8)
+                                                     leading: 5,
+                                                     bottom: 10,
+                                                     trailing: 8)
         
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8),
                                                                                         heightDimension: .absolute(150)),
@@ -111,6 +124,4 @@ final class CharacterDetailViewViewModel {
         section.orthogonalScrollingBehavior = .groupPaging
         return section
     }
-    
-    
 }
