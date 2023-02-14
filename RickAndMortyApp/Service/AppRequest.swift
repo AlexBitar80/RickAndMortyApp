@@ -69,9 +69,15 @@ final class AppRequest {
         if trimed.contains("/") {
             let components = trimed.components(separatedBy: "/")
             if !components.isEmpty {
-                let endpointString = components[0]
+                let endpointString = components[0] // Endpoint
+                var pathComponents: [String] = []
+                if components.count > 1 {
+                    pathComponents = components
+                    pathComponents.removeFirst()
+                }
+                
                 if let appEndpoint = AppEndpoint(rawValue: endpointString) {
-                    self.init(endpoint: appEndpoint)
+                    self.init(endpoint: appEndpoint, pathComponents: pathComponents)
                     return
                 }
             }
