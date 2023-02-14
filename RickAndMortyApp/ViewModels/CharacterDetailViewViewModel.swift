@@ -49,14 +49,14 @@ final class CharacterDetailViewViewModel {
         sections = [
             .photo(viewModel: .init(imageUrl: URL(string: image))),
             .information(viewModels: [
-                .init(value: statusText, title: "Status"),
-                .init(value: genderText, title: "Gender"),
-                .init(value: typeText, title: "Type"),
-                .init(value: speciesText, title: "Species"),
-                .init(value: originText, title: "Origin"),
-                .init(value: locationText, title: "Location"),
-                .init(value: createdText, title: "Created"),
-                .init(value: "\(character.episode?.count ?? 0)", title: "Total Episodes"),
+                .init(type: .status, value: statusText),
+                .init(type: .gender, value: genderText),
+                .init(type: .type, value: typeText),
+                .init(type: .species, value: speciesText),
+                .init(type: .origin, value: originText),
+                .init(type: .location, value: locationText),
+                .init(type: .created, value: createdText),
+                .init(type: .episodeCount, value: "\(character.episode?.count ?? 0)"),
             ]),
             .episodes(viewModels: episodes.compactMap ({
                 return CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: $0))

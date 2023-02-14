@@ -14,8 +14,10 @@ final class CharacterInfoCollectionViewCell: UICollectionViewCell {
     
     private lazy var valueLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Terra"
         label.font = UIFont.systemFont(ofSize: 20, weight: .light)
         return label
     }()
@@ -23,7 +25,6 @@ final class CharacterInfoCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Location"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
         return label
@@ -31,7 +32,6 @@ final class CharacterInfoCollectionViewCell: UICollectionViewCell {
     
     private lazy var iconImageView: UIImageView = {
         let icon = UIImageView()
-        icon.image = UIImage(systemName: "globe.americas.fill")
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFit
         return icon
@@ -65,6 +65,8 @@ final class CharacterInfoCollectionViewCell: UICollectionViewCell {
         titleLabel.text = nil
         valueLabel.text = nil
         iconImageView.image = nil
+        iconImageView.tintColor = nil
+        titleLabel.textColor = nil
     }
     
     private func configureUI() {
@@ -77,7 +79,12 @@ final class CharacterInfoCollectionViewCell: UICollectionViewCell {
     }
     
     public func configure(with viewModel: CharacterInfoCollectionViewCellViewModel) {
-    
+        titleLabel.text = viewModel.title
+        titleLabel.textColor = viewModel.tintColor
+        valueLabel.textColor = .label
+        valueLabel.text = viewModel.displayValue
+        iconImageView.image = viewModel.iconImage
+        iconImageView.tintColor = viewModel.tintColor
     }
     
     private func setupConstraints() {
@@ -97,10 +104,10 @@ final class CharacterInfoCollectionViewCell: UICollectionViewCell {
             iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
             iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             
-            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 35),
+            valueLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             valueLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 10),
             valueLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            valueLabel.heightAnchor.constraint(equalToConstant: 30),
+            valueLabel.bottomAnchor.constraint(equalTo: titleContainerView.topAnchor)
         ])
     }
 }
