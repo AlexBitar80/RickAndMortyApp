@@ -55,11 +55,10 @@ final class CharacterCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Helpers
     
-    private func setupLayer() {
-        contentView.layer.cornerRadius = 5
-    }
-    
     private func configureUI() {
+        contentView.layer.cornerRadius = 8
+        contentView.layer.masksToBounds = true
+        
         self.contentView.addSubviews(imageView, nameLabel, statusLabel)
     }
     
@@ -82,11 +81,6 @@ final class CharacterCollectionViewCell: UICollectionViewCell {
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             imageView.bottomAnchor.constraint(equalTo: nameLabel.topAnchor, constant: -3),
         ])
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        setupLayer()
     }
     
     override func prepareForReuse() {
