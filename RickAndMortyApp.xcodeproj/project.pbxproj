@@ -29,6 +29,9 @@
 		CE519A162969D5A5006EB488 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE519A152969D5A5006EB488 /* EpisodesViewController.swift */; };
 		CE519A182969D5FD006EB488 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE519A172969D5FD006EB488 /* SettingsViewController.swift */; };
 		CE6F4011299C29B90063FEB7 /* EpisodeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F4010299C29B90063FEB7 /* EpisodeDetailViewController.swift */; };
+		CE6F681B29A86EF8006732F5 /* ApiCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F681A29A86EF8006732F5 /* ApiCacheManager.swift */; };
+		CE6F681D29A8736D006732F5 /* EpisodeDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F681C29A8736D006732F5 /* EpisodeDetailViewViewModel.swift */; };
+		CE6F681F29A873E5006732F5 /* EpisodeDetailViewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F681E29A873E5006732F5 /* EpisodeDetailViewView.swift */; };
 		CE9442622981B6E00067C65D /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9442612981B6E00067C65D /* CharacterDetailViewController.swift */; };
 		CE9442642981B7D50067C65D /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9442632981B7D50067C65D /* CharacterDetailView.swift */; };
 		CE9442662981B8550067C65D /* CharacterDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9442652981B8550067C65D /* CharacterDetailViewViewModel.swift */; };
@@ -70,6 +73,9 @@
 		CE519A172969D5FD006EB488 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CE6F400F299C27D00063FEB7 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		CE6F4010299C29B90063FEB7 /* EpisodeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailViewController.swift; sourceTree = "<group>"; };
+		CE6F681A29A86EF8006732F5 /* ApiCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCacheManager.swift; sourceTree = "<group>"; };
+		CE6F681C29A8736D006732F5 /* EpisodeDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailViewViewModel.swift; sourceTree = "<group>"; };
+		CE6F681E29A873E5006732F5 /* EpisodeDetailViewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailViewView.swift; sourceTree = "<group>"; };
 		CE9442612981B6E00067C65D /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 		CE9442632981B7D50067C65D /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		CE9442652981B8550067C65D /* CharacterDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewViewModel.swift; sourceTree = "<group>"; };
@@ -143,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				CE16B9FF298746B700F4A193 /* AppImageLoader.swift */,
+				CE6F681A29A86EF8006732F5 /* ApiCacheManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -236,6 +243,7 @@
 				CEF235DB2996BD7200CAC9BC /* CharacterDetail */,
 				CE4DB3C7297EDE3000CE4EB4 /* CharacterListViewViewModel.swift */,
 				CE4DB3D5297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift */,
+				CE6F681C29A8736D006732F5 /* EpisodeDetailViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -247,6 +255,7 @@
 				CE4DB3CA297EEF5D00CE4EB4 /* CharacterListView.swift */,
 				CE4DB3D3297F7FD000CE4EB4 /* CharacterCollectionViewCell.swift */,
 				CEFA7AD429836A49007030F0 /* FooterLoadingCollectionReusableView.swift */,
+				CE6F681E29A873E5006732F5 /* EpisodeDetailViewView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -364,12 +373,15 @@
 				CE9442622981B6E00067C65D /* CharacterDetailViewController.swift in Sources */,
 				CE16BA00298746B700F4A193 /* AppImageLoader.swift in Sources */,
 				CE05E38B2977A20A003C578B /* CharaterStatus.swift in Sources */,
+				CE6F681F29A873E5006732F5 /* EpisodeDetailViewView.swift in Sources */,
 				CE4DB3D6297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift in Sources */,
 				CEF235DA2996BBC300CAC9BC /* CharacterEpisodeCollectionViewCell.swift in Sources */,
 				CEF235DD2996BDD700CAC9BC /* CharacterPhotoCollectionViewCellViewModel.swift in Sources */,
 				CE05E379297797A8003C578B /* AppService.swift in Sources */,
 				CEF0E91A29687F1500C81FC9 /* SceneDelegate.swift in Sources */,
+				CE6F681B29A86EF8006732F5 /* ApiCacheManager.swift in Sources */,
 				CE05E3892977A1F1003C578B /* CharacterGender.swift in Sources */,
+				CE6F681D29A8736D006732F5 /* EpisodeDetailViewViewModel.swift in Sources */,
 				CEFA7AD529836A49007030F0 /* FooterLoadingCollectionReusableView.swift in Sources */,
 				CE519A182969D5FD006EB488 /* SettingsViewController.swift in Sources */,
 				CE9442642981B7D50067C65D /* CharacterDetailView.swift in Sources */,
