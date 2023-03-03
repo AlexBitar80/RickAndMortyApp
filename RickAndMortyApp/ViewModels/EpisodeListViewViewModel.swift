@@ -1,37 +1,33 @@
 //
-//  CharacterListViewViewModel.swift
+//  EpisodeListViewViewModel.swift
 //  RickAndMortyApp
 //
-//  Created by João Alexandre Bitar on 23/01/23.
+//  Created by João Alexandre Bitar on 02/03/23.
 //
 
 import Foundation
 import UIKit
 
-protocol CharacterListViewViewModelDelegate: AnyObject {
-    func didLoadInitialCharacters()
-    func didLoadMoreCharacters(with newIndexPaths: [IndexPath])
-    func didSelectCharacter(_ character: RMCharacter)
+protocol EpisodeListViewViewModelDelegate: AnyObject {
+    func didLoadInitialEpisodes()
+    func didLoadMoreEpisodes(with newIndexPaths: [IndexPath])
+    func didSelectEpisode(_ episode: Episode)
 }
 
-final class CharacterListViewViewModel: NSObject {
+final class EpisodeListViewViewModel: NSObject {
     
     // MARK: - Properties
     
-    public weak var delegate: CharacterListViewViewModelDelegate?
+    public weak var delegate: EpisodeListViewViewModelDelegate?
     
     private var isLoadingMoreCharactes: Bool = false
     
-    private var characters: [RMCharacter] = [] {
+    private var episodes: [Episode] = [] {
         didSet {
-            for character in characters {
-                guard let name = character.name,
-                      let status = character.status,
-                      let image = character.image else { return }
-                
-                let viewModel = CharacterCollectionViewCelltViewViewModel(characterName: name,
-                                                                          characterStatus: status,
-                                                                          characterImageUrl: URL(string: image))
+            for episode in episodes {
+                guard let episodeUrl = episode.url else { return }
+
+                let viewModel = CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: episodeUrl))
                 if !cellsViewModels.contains(viewModel) {
                     cellsViewModels.append(viewModel)
                 }
@@ -39,21 +35,21 @@ final class CharacterListViewViewModel: NSObject {
         }
     }
     
-    private var cellsViewModels: [CharacterCollectionViewCelltViewViewModel] = []
+    private var cellsViewModels: [CharacterEpisodesCollectionViewCellViewModel] = []
     
-    private var apiInfo: GetAllCharacterResponseInfo? = nil
+    private var apiInfo: GetAllEpisodesResponseInfo? = nil
     
-    public func fetchCharacters() {
-        AppService.shared.execute(.listCharactersRequests,
-                                  expecting: GetAllCharacterResponse.self) { [weak self] result in
+    public func fetchEpisodes() {
+        AppService.shared.execute(.listEpisodesRequest,
+                                  expecting: GetAllEpisodesResponse.self) { [weak self] result in
             switch result {
             case .success(let responseModel):
                 guard let result = responseModel.results,
                       let info = responseModel.info else { return }
-                self?.characters = result
+                self?.episodes = result
                 self?.apiInfo = info
                 DispatchQueue.main.async {
-                    self?.delegate?.didLoadInitialCharacters()
+                    self?.delegate?.didLoadInitialEpisodes()
                 }
             case .failure(let error):
                 print(String(describing: error))
@@ -61,7 +57,7 @@ final class CharacterListViewViewModel: NSObject {
         }
     }
     
-    public func fetchAddicitionalCharacters(url: URL) {
+    public func fetchAddicitionalEpisodes(url: URL) {
         guard !isLoadingMoreCharactes else { return }
         
         isLoadingMoreCharactes = true
@@ -70,14 +66,14 @@ final class CharacterListViewViewModel: NSObject {
             return
         }
         
-        AppService.shared.execute(request, expecting: GetAllCharacterResponse.self) { [weak self] resuslt in
+        AppService.shared.execute(request, expecting: GetAllEpisodesResponse.self) { [weak self] resuslt in
             guard let strongSelf = self else { return }
             switch resuslt {
             case .success(let responseModel):
                 guard let moreResults = responseModel.results,
                       let info = responseModel.info else { return }
                 
-                let originalCount = strongSelf.characters.count
+                let originalCount = strongSelf.episodes.count
                 let newCount = moreResults.count
                 let total = originalCount+newCount
                 let startingIndex = total - newCount
@@ -85,10 +81,10 @@ final class CharacterListViewViewModel: NSObject {
                     return IndexPath(row: $0, section: 0)
                 })
                 
-                strongSelf.characters.append(contentsOf: moreResults)
+                strongSelf.episodes.append(contentsOf: moreResults)
                 strongSelf.apiInfo = info
                 DispatchQueue.main.async {
-                    strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
+                    strongSelf.delegate?.didLoadMoreEpisodes(with: indexPathsToAdd)
                 }
                 
                 strongSelf.isLoadingMoreCharactes = false
@@ -105,14 +101,14 @@ final class CharacterListViewViewModel: NSObject {
 
 // MARK: - Delegate Methods
 
-extension CharacterListViewViewModel: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension EpisodeListViewViewModel: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return cellsViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCollectionViewCell.cellIdentifier,
-                                                            for: indexPath) as? CharacterCollectionViewCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIndetifier,
+                                                            for: indexPath) as? CharacterEpisodeCollectionViewCell else { return UICollectionViewCell() }
 
         cell.configure(with: cellsViewModels[indexPath.row])
         return cell
@@ -159,14 +155,14 @@ extension CharacterListViewViewModel: UICollectionViewDelegate, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let character = characters[indexPath.row]
-        delegate?.didSelectCharacter(character)
+        let selection = episodes[indexPath.row]
+        delegate?.didSelectEpisode(selection)
     }
 }
 
 // MARK: - ScrollView
 
-extension CharacterListViewViewModel: UIScrollViewDelegate {
+extension EpisodeListViewViewModel: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard shouldShowLoadMoreIndicator,
               !isLoadingMoreCharactes,
@@ -180,7 +176,7 @@ extension CharacterListViewViewModel: UIScrollViewDelegate {
             let totalScrollVieFixedHeight = scrollView.frame.size.height
             
             if offset >= (totalContentHeight - totalScrollVieFixedHeight - 120) {
-                self?.fetchAddicitionalCharacters(url: url)
+                self?.fetchAddicitionalEpisodes(url: url)
             }
             
             t.invalidate()

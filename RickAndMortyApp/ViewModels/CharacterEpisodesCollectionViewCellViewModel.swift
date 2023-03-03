@@ -13,7 +13,7 @@ protocol EpisodeDataRender {
     var episode: String? { get }
 }
 
-final class CharacterEpisodesCollectionViewCellViewModel {
+final class CharacterEpisodesCollectionViewCellViewModel: Hashable, Equatable {
     
     // MARK: - Properties
     
@@ -68,5 +68,15 @@ final class CharacterEpisodesCollectionViewCellViewModel {
                 print(String(describing: failure))
             }
         }
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.episodeDataUrl?.absoluteString ?? "")
+    }
+    
+    static func == (lhs: CharacterEpisodesCollectionViewCellViewModel,
+                    rhs: CharacterEpisodesCollectionViewCellViewModel) -> Bool {
+        
+        return lhs.hashValue == rhs.hashValue
     }
 }
