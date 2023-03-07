@@ -14,6 +14,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     private lazy var seasonLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return label
@@ -21,6 +22,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         return label
@@ -28,6 +30,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     private lazy var airDateLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .light)
         return label
