@@ -5,7 +5,7 @@
 //  Created by João Alexandre Bitar on 10/02/23.
 //
 
-import Foundation
+import UIKit
 
 protocol EpisodeDataRender {
     var name: String? { get }
@@ -21,6 +21,8 @@ final class CharacterEpisodesCollectionViewCellViewModel: Hashable, Equatable {
     private var isFetching = false
     private var dataBlock: ((EpisodeDataRender) -> Void)?
     
+    public let borderColor: UIColor
+    
     private var episode: Episode? {
         didSet {
             guard let model = episode else { return }
@@ -31,8 +33,9 @@ final class CharacterEpisodesCollectionViewCellViewModel: Hashable, Equatable {
     
     // MARK: - Init
     
-    init(episodeDataUrl: URL?) {
+    init(episodeDataUrl: URL?, borderColor: UIColor = .systemBlue) {
         self.episodeDataUrl = episodeDataUrl
+        self.borderColor = borderColor
     }
     
     // MARK: - Public
