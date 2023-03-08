@@ -25,6 +25,7 @@ final class EpisodesViewController: UIViewController {
         configureUI()
         setupDelegate()
         setupConstraints()
+        addSearchButton()
     }
     
     // MARK: - Helpers
@@ -35,6 +36,16 @@ final class EpisodesViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(episodeListView)
+    }
+    
+    private func addSearchButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search,
+                                                            target: self,
+                                                            action: #selector(didTapSearch))
+    }
+    
+    @objc private func didTapSearch() {
+        
     }
     
     private func setupConstraints() {

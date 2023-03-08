@@ -43,6 +43,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
         
         configureUI()
         setupConstraints()
+        setupLayer()
     }
     
     required init?(coder: NSCoder) {
@@ -61,11 +62,12 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     private func configureUI() {
         contentView.backgroundColor = .quaternarySystemFill
+        contentView.addSubviews(seasonLabel, nameLabel, airDateLabel)
+    }
+    
+    private func setupLayer() {
         contentView.layer.cornerRadius = 8
         contentView.layer.borderWidth = 2
-        contentView.layer.borderColor = UIColor.systemBlue.cgColor
-        
-        contentView.addSubviews(seasonLabel, nameLabel, airDateLabel)
     }
     
     private func setupConstraints() {
@@ -100,5 +102,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
         }
         
         viewModel.fetchEpisode()
+        
+        contentView.layer.borderColor = viewModel.borderColor.cgColor
     }
 }

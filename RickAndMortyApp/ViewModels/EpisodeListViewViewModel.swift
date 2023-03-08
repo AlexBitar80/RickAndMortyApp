@@ -22,18 +22,37 @@ final class EpisodeListViewViewModel: NSObject {
     
     private var isLoadingMoreCharactes: Bool = false
     
+    private let borderColors: [UIColor] = [
+        .systemBlue,
+        .systemOrange,
+        .systemRed,
+        .systemTeal,
+        .systemCyan,
+        .systemGray,
+        .systemMint,
+        .systemPink,
+        .systemBrown,
+        .systemGreen,
+        .systemYellow,
+        .systemIndigo,
+        .systemPurple,
+    ]
+    
     private var episodes: [Episode] = [] {
         didSet {
             for episode in episodes {
                 guard let episodeUrl = episode.url else { return }
 
-                let viewModel = CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: episodeUrl))
+                let viewModel = CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: episodeUrl),
+                                                                             borderColor: borderColors.randomElement() ?? .systemBlue)
                 if !cellsViewModels.contains(viewModel) {
                     cellsViewModels.append(viewModel)
                 }
             }
         }
     }
+    
+
     
     private var cellsViewModels: [CharacterEpisodesCollectionViewCellViewModel] = []
     
@@ -147,10 +166,10 @@ extension EpisodeListViewViewModel: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let bounds = UIScreen.main.bounds
-        let width = (bounds.width-30)/2
+        let bounds = collectionView.bounds
+        let width = bounds.width-20
         
-        return CGSize(width: width, height: width * 1.5)
+        return CGSize(width: width, height: 140)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
