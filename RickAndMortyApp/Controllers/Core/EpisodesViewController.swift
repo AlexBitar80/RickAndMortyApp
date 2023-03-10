@@ -20,8 +20,6 @@ final class EpisodesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Episodes"
-        view.backgroundColor = .systemBackground
         configureUI()
         setupDelegate()
         setupConstraints()
@@ -35,6 +33,8 @@ final class EpisodesViewController: UIViewController {
     }
     
     private func configureUI() {
+        title = "Episodes"
+        view.backgroundColor = .systemBackground
         view.addSubview(episodeListView)
     }
     

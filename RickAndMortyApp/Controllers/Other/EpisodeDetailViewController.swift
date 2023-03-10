@@ -18,7 +18,7 @@ final class EpisodeDetailViewController: UIViewController {
     // MARK: - Init
     
     init(url: URL?) {
-        self.viewModel = .init(endpointUrl: url)
+        self.viewModel = EpisodeDetailViewViewModel(endpointUrl: url)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,12 +30,18 @@ final class EpisodeDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureUI()
+        setupDelegate()
         setupConstraints()
+        
+        viewModel?.fetchEpisodeData()
     }
     
     // MARK: - Helpers
+    
+    private func setupDelegate() {
+        viewModel?.delegate = self
+    }
     
     private func configureUI() {
         title = "Episode"
@@ -59,5 +65,13 @@ final class EpisodeDetailViewController: UIViewController {
     
     @objc private func didTapShare() {
         
+    }
+}
+
+extension EpisodeDetailViewController: EpisodeDetailViewViewModelDelegate {
+    func didFetchEpisodeDetails() {
+        guard let viewModel else { return }
+        
+        detailView.configure(with: viewModel)
     }
 }
