@@ -16,13 +16,21 @@ final class EpisodeDetailViewViewModel {
     
     private let endpointUrl: URL?
     
-    private var dataTuple: (Episode, [RMCharacter])? {
+    private var dataTuple: (episode: Episode, characters: [RMCharacter])? {
         didSet {
+            createCellViewModels()
             delegate?.didFetchEpisodeDetails()
         }
     }
     
+    enum SectionType {
+        case information(viewModels: [EpisodeInfoCollectionViewCellViewModel])
+        case characters(viewModels: [CharacterCollectionViewCelltViewViewModel])
+    }
+    
     public weak var delegate: EpisodeDetailViewViewModelDelegate?
+    
+    public private(set) var cellViewModels: [SectionType] = []
     
     // MARK: - Init
     
@@ -32,7 +40,34 @@ final class EpisodeDetailViewViewModel {
     
     // MARK: - Helpers
     
-    func fetchEpisodeData() {
+    private func createCellViewModels() {
+        guard let episode = dataTuple?.episode,
+              let characters = dataTuple?.characters,
+              let episodeName = episode.name,
+              let episodeAirData = episode.air_date,
+              let episodeSeason = episode.episode,
+              let createdEpisode = episode.created else { return }
+                
+        cellViewModels = [
+            .information(viewModels: [
+                .init(title: "Episode Name", value: episodeName),
+                .init(title: "Air Date", value: episodeAirData),
+                .init(title: "Episode", value: episodeSeason),
+                .init(title: "Created", value: createdEpisode)
+            ]),
+            .characters(viewModels: characters.compactMap({ character in
+                guard let name = character.name,
+                      let status = character.status,
+                      let imageUrl = URL(string: character.image ?? "") else { return nil }
+                    
+                return CharacterCollectionViewCelltViewViewModel(characterName: name,
+                                                                 characterStatus: status,
+                                                                 characterImageUrl: imageUrl)
+            }))
+        ]
+    }
+    
+    public func fetchEpisodeData() {
         guard let url = endpointUrl, let request = AppRequest(url: url) else { return }
         
         AppService.shared.execute(request, expecting: Episode.self) { [weak self] result in
@@ -74,8 +109,8 @@ final class EpisodeDetailViewViewModel {
         
         group.notify(queue: .main) {
             self.dataTuple = (
-                episode,
-                charactersCount
+                episode: episode,
+                characters: charactersCount
             )
         }
     }
