@@ -25,6 +25,7 @@ final class CharacterViewController: UIViewController {
         configureUI()
         setupDelegate()
         setupConstraints()
+        addSearchButton()
     }
     
     // MARK: - Helpers
@@ -35,6 +36,18 @@ final class CharacterViewController: UIViewController {
     
     private func configureUI() {
         view.addSubview(characterListView)
+    }
+    
+    private func addSearchButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search,
+                                                            target: self,
+                                                            action: #selector(didTapSearch))
+    }
+    
+    @objc private func didTapSearch() {
+        let vc = SearchViewController(config: SearchViewController.Config(type: .character))
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupConstraints() {

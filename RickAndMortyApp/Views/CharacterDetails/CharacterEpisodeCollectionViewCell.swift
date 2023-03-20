@@ -14,6 +14,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     private lazy var seasonLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         return label
@@ -21,6 +22,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     private lazy var nameLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         return label
@@ -28,6 +30,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     private lazy var airDateLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 16, weight: .light)
         return label
@@ -40,6 +43,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
         
         configureUI()
         setupConstraints()
+        setupLayer()
     }
     
     required init?(coder: NSCoder) {
@@ -58,11 +62,12 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     
     private func configureUI() {
         contentView.backgroundColor = .quaternarySystemFill
+        contentView.addSubviews(seasonLabel, nameLabel, airDateLabel)
+    }
+    
+    private func setupLayer() {
         contentView.layer.cornerRadius = 8
         contentView.layer.borderWidth = 2
-        contentView.layer.borderColor = UIColor.systemBlue.cgColor
-        
-        contentView.addSubviews(seasonLabel, nameLabel, airDateLabel)
     }
     
     private func setupConstraints() {
@@ -97,5 +102,7 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
         }
         
         viewModel.fetchEpisode()
+        
+        contentView.layer.borderColor = viewModel.borderColor.cgColor
     }
 }
