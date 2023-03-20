@@ -41,6 +41,7 @@ final class EpisodeDetailViewController: UIViewController {
     
     private func setupDelegate() {
         viewModel?.delegate = self
+        detailView.delegate = self
     }
     
     private func configureUI() {
@@ -68,10 +69,26 @@ final class EpisodeDetailViewController: UIViewController {
     }
 }
 
+// MARK: - EpisodeDetailViewViewModelDelegate
+
 extension EpisodeDetailViewController: EpisodeDetailViewViewModelDelegate {
     func didFetchEpisodeDetails() {
         guard let viewModel else { return }
         
         detailView.configure(with: viewModel)
+    }
+}
+
+
+// MARK: - EpisodeDetailViewDelegate
+
+extension EpisodeDetailViewController: EpisodeDetailViewDelegate {
+    func episodeDetailView(_ detailView: EpisodeDetailView,
+                           didSelect character: RMCharacter) {
+        
+        let controller = CharacterDetailViewController(viewModel: .init(character: character))
+        controller.navigationItem.title = character.name
+        controller.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

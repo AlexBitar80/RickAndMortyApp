@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol EpisodeDetailViewDelegate: AnyObject {
+    func episodeDetailView(_ detailView: EpisodeDetailView,
+                           didSelect character: RMCharacter)
+}
+
 final class EpisodeDetailView: UIView {
     
     // MARK: - Properties
@@ -46,6 +51,8 @@ final class EpisodeDetailView: UIView {
         spinner.hidesWhenStopped = true
         return spinner
     }()
+    
+    public weak var delegate: EpisodeDetailViewDelegate?
     
     // MARK: - Init
     
@@ -92,6 +99,20 @@ final class EpisodeDetailView: UIView {
 extension EpisodeDetailView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let viewModel = viewModel else { return }
+        
+        let sections = viewModel.cellViewModels
+        
+        let sectionType = sections[indexPath.section]
+        
+        switch sectionType {
+        case .information:
+            break
+        case .characters:
+            guard let character = viewModel.character(at: indexPath.row) else { return }
+            self.delegate?.episodeDetailView(self, didSelect: character)
+        }
     }
 }
 
@@ -169,7 +190,7 @@ extension EpisodeDetailView {
         item.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
         
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1),
-                                                                       heightDimension: .absolute(100)),
+                                                                       heightDimension: .absolute(80)),
                                                      subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
