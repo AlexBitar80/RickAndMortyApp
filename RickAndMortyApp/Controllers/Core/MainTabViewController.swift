@@ -40,10 +40,10 @@ final class MainTabViewController: UITabBarController {
         let nav4 = UINavigationController(rootViewController: settings)
         
         nav1.tabBarItem = UITabBarItem(title: "Characters",
-                                       image: UIImage(systemName: "globe"),
+                                       image: UIImage(systemName: "person.circle"),
                                        tag: 1)
         nav2.tabBarItem = UITabBarItem(title: "Locations",
-                                       image: UIImage(systemName: "person.circle"),
+                                       image: UIImage(systemName: "globe"),
                                        tag: 2)
         nav3.tabBarItem = UITabBarItem(title: "Episodes",
                                        image: UIImage(systemName: "tv"),
