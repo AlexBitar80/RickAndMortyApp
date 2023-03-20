@@ -169,7 +169,7 @@ extension EpisodeListViewViewModel: UICollectionViewDelegate, UICollectionViewDa
         let bounds = collectionView.bounds
         let width = bounds.width-20
         
-        return CGSize(width: width, height: 140)
+        return CGSize(width: width, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
