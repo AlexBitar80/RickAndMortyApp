@@ -39,10 +39,14 @@ struct SettingsView: View {
                 
                 Text(viewModel.title)
                     .padding(.leading, 10)
+                
+                Spacer()
             }
             .padding(10)
+            .onTapGesture {
+                viewModel.onTapHandler(viewModel.type)
+            }
         }
-        .listStyle(.insetGrouped)
     }
 }
 
@@ -51,7 +55,9 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(viewModel: .init(cellViewModels: SettingsOption.allCases.compactMap({
-            return SettingsCellViewModel(type: $0)
+            return SettingsCellViewModel(type: $0) { option in
+
+            }
         })))
     }
 }
