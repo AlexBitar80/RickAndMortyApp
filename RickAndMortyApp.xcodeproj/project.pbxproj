@@ -36,6 +36,8 @@
 		CE6F681B29A86EF8006732F5 /* ApiCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F681A29A86EF8006732F5 /* ApiCacheManager.swift */; };
 		CE6F681D29A8736D006732F5 /* EpisodeDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F681C29A8736D006732F5 /* EpisodeDetailViewViewModel.swift */; };
 		CE6F681F29A873E5006732F5 /* EpisodeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F681E29A873E5006732F5 /* EpisodeDetailView.swift */; };
+		CE8035BC2A5E54DB001441F7 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8035BB2A5E54DB001441F7 /* LocationView.swift */; };
+		CE8035BE2A5EEF21001441F7 /* LocationViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8035BD2A5EEF21001441F7 /* LocationViewViewModel.swift */; };
 		CE9442622981B6E00067C65D /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9442612981B6E00067C65D /* CharacterDetailViewController.swift */; };
 		CE9442642981B7D50067C65D /* CharacterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9442632981B7D50067C65D /* CharacterDetailView.swift */; };
 		CE9442662981B8550067C65D /* CharacterDetailViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9442652981B8550067C65D /* CharacterDetailViewViewModel.swift */; };
@@ -90,6 +92,8 @@
 		CE6F681A29A86EF8006732F5 /* ApiCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCacheManager.swift; sourceTree = "<group>"; };
 		CE6F681C29A8736D006732F5 /* EpisodeDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailViewViewModel.swift; sourceTree = "<group>"; };
 		CE6F681E29A873E5006732F5 /* EpisodeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeDetailView.swift; sourceTree = "<group>"; };
+		CE8035BB2A5E54DB001441F7 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
+		CE8035BD2A5EEF21001441F7 /* LocationViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewViewModel.swift; sourceTree = "<group>"; };
 		CE9442612981B6E00067C65D /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 		CE9442632981B7D50067C65D /* CharacterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailView.swift; sourceTree = "<group>"; };
 		CE9442652981B8550067C65D /* CharacterDetailViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewViewModel.swift; sourceTree = "<group>"; };
@@ -212,6 +216,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		CE8035BA2A5E54B1001441F7 /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				CE8035BB2A5E54DB001441F7 /* LocationView.swift */,
+			);
+			path = Location;
+			sourceTree = SOURCE_ROOT;
+		};
 		CE94425F2981B6960067C65D /* Core */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +333,7 @@
 				CE4DB3C7297EDE3000CE4EB4 /* CharacterListViewViewModel.swift */,
 				CE4DB3D5297F818900CE4EB4 /* CharacterCollectionViewCelltViewViewModel.swift */,
 				CE65724E29B152650023D25F /* EpisodeListViewViewModel.swift */,
+				CE8035BD2A5EEF21001441F7 /* LocationViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -328,6 +341,7 @@
 		CEF0E92D29688BE100C81FC9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CE8035BA2A5E54B1001441F7 /* Location */,
 				CE99FEF629CA2523007FF832 /* SwiftUI */,
 				CEC4F51129BAD49B00A2FB93 /* EpisodeDetails */,
 				CE0E00FF29B12BD6007F5D19 /* Episode */,
@@ -463,11 +477,13 @@
 				CE6F681B29A86EF8006732F5 /* ApiCacheManager.swift in Sources */,
 				CE05E3892977A1F1003C578B /* CharacterGender.swift in Sources */,
 				CE6F681D29A8736D006732F5 /* EpisodeDetailViewViewModel.swift in Sources */,
+				CE8035BC2A5E54DB001441F7 /* LocationView.swift in Sources */,
 				CEFA7AD529836A49007030F0 /* FooterLoadingCollectionReusableView.swift in Sources */,
 				CE519A182969D5FD006EB488 /* SettingsViewController.swift in Sources */,
 				CE9442642981B7D50067C65D /* CharacterDetailView.swift in Sources */,
 				CE05E37B2977980C003C578B /* AppRequest.swift in Sources */,
 				CE6F4011299C29B90063FEB7 /* EpisodeDetailViewController.swift in Sources */,
+				CE8035BE2A5EEF21001441F7 /* LocationViewViewModel.swift in Sources */,
 				CE4DB3C8297EDE3000CE4EB4 /* CharacterListViewViewModel.swift in Sources */,
 				CEC4F51329BAD4DB00A2FB93 /* EpisodeInfoCollectionViewCell.swift in Sources */,
 				CEA1FDBA29C953C000BD89F2 /* SettingsOption.swift in Sources */,
