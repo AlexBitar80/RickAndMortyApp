@@ -8,7 +8,7 @@
 import UIKit
 
 class LocationView: UIView {
-
+    
     // MARK: - Properties
     
     private var viewModel: LocationViewViewModel? {
@@ -27,7 +27,8 @@ class LocationView: UIView {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.alpha = 0
         tableView.isHidden = true
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(LocationTableViewCell.self,
+                           forCellReuseIdentifier: LocationTableViewCell.identifier)
         return tableView
     }()
     
@@ -43,8 +44,10 @@ class LocationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
-        configureUI()
         spinner.startAnimating()
+        
+        configureUI()
+        configureTableView()
         addconstraints()
     }
     
@@ -54,10 +57,15 @@ class LocationView: UIView {
     
     // MARK: - Helpers
     
+    private func configureTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
     private func configureUI() {
         addSubviews(tableView, spinner)
     }
-
+    
     private func addconstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
@@ -74,5 +82,37 @@ class LocationView: UIView {
     
     func configure(with viewModel: LocationViewViewModel) {
         self.viewModel = viewModel
+    }
+}
+
+extension LocationView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        // Notify controller of selection
+    }
+}
+
+extension LocationView: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel?.cellViewModels.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cellViewModels = viewModel?.cellViewModels else { fatalError() }
+        
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: LocationTableViewCell.identifier
+        ) as? LocationTableViewCell else { return UITableViewCell() }
+        
+        let cellViewModel = cellViewModels[indexPath.row]
+        var cellConfig = cell.defaultContentConfiguration()
+        cellConfig.text = cellViewModel.name
+        cell.contentConfiguration = cellConfig
+        
+        return cell
     }
 }
