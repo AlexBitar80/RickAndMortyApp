@@ -25,6 +25,8 @@ final class LocationViewController: UIViewController {
         configureUI()
         addSearchButton()
         addConstraints()
+        viewModel.delegate = self
+        viewModel.fetchLocations()
     }
     
     // MARK: - Helpers
@@ -50,5 +52,14 @@ final class LocationViewController: UIViewController {
     
     @objc private func didTapSearch() {
         
+    }
+}
+
+// MARK: - LocationViewModel Delegate
+
+extension LocationViewController: LocationViewViewModelDelegate {
+    
+    func didFetchInitialLocations() {
+        primaryView.configure(with: viewModel)
     }
 }

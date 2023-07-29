@@ -7,24 +7,54 @@
 
 import Foundation
 
+// MARK: - LocationViewViewModelDelegate
+
+protocol LocationViewViewModelDelegate: AnyObject {
+    func didFetchInitialLocations()
+}
+
 final class LocationViewViewModel {
     
-    private let locations: [Location] = []
+    weak var delegate: LocationViewViewModelDelegate?
+    
+    // MARK: - Private Properties
+    
+    private var locations: [Location] = [] {
+        didSet {
+            for location in locations {
+                let cellViewModel = LocationTableViewCellViewModel(location: location)
+                if !cellViewModels.contains(cellViewModel) {
+                    cellViewModels.append(cellViewModel)
+                }
+            }
+        }
+    }
+    private(set) var cellViewModels: [LocationTableViewCellViewModel] = []
+    private var apiInfo: GetAllLocationsResponseInfo?
+    
+    // MARK: - Init
     
     init() {}
     
-    private let cellViewModels: [String] = []
+    // MARK: - Methods
     
     func fetchLocations() {
-        AppService.shared.execute(.listLocationRequest, expecting: String.self) { result in
+        AppService.shared.execute(.listLocationRequest,
+                                  expecting: GetAllLocationsResponse.self) { [weak self] result in
             switch result {
             case .success(let location):
-                print(location)
+                self?.apiInfo = location.info
+                self?.locations = location.results ?? []
+                DispatchQueue.main.async {
+                    self?.delegate?.didFetchInitialLocations()
+                }
             case .failure(let error):
                 print(error)
             }
         }
     }
+    
+    // MARK: - Private Methods
     
     private var hasMoreResults: Bool {
         return false
