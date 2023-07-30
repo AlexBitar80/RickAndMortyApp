@@ -19,7 +19,7 @@ final class LocationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        primaryView.delgate = self
         title = "Locations"
         view.backgroundColor = .systemBackground
         configureUI()
@@ -61,5 +61,16 @@ extension LocationViewController: LocationViewViewModelDelegate {
     
     func didFetchInitialLocations() {
         primaryView.configure(with: viewModel)
+    }
+}
+
+// MARK: - LocationViewDelegate
+
+extension LocationViewController: LocationViewDelegate {
+    func rmLocationView(_ locationView: LocationView,
+                        didSelect location: Location) {
+        let viewController = LocationDetailViewController(location: location)
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
