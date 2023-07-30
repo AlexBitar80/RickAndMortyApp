@@ -38,6 +38,13 @@ final class LocationViewViewModel {
     
     // MARK: - Methods
     
+    func location(at index: Int) -> Location? {
+        
+        guard index < locations.count, index >= 0 else { return nil }
+        
+        return self.locations[index]
+    }
+    
     func fetchLocations() {
         AppService.shared.execute(.listLocationRequest,
                                   expecting: GetAllLocationsResponse.self) { [weak self] result in
