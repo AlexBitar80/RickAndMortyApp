@@ -99,6 +99,10 @@ extension LocationView: UITableViewDelegate {
         self.delgate?.rmLocationView(self,
                                      didSelect: locationModel)
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
 }
 
 extension LocationView: UITableViewDataSource {
