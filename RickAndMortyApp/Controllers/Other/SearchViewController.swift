@@ -16,6 +16,17 @@ final class SearchViewController: UIViewController {
             case character
             case location
             case episode
+            
+            var title: String {
+                switch self {
+                case .episode:
+                    return "Search Episodes"
+                case .character:
+                    return "Search Characters"
+                case .location:
+                    return "Search Locations"
+                }
+            }
         }
         
         let type: `Type`
@@ -44,7 +55,7 @@ final class SearchViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        title = "Search"
+        title = config.type.title
     }
 
     // MARK: - Helpers

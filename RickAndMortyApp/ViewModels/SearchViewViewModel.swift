@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+class SearchViewViewModel {
+    let config: SearchViewController.Config
+    
+    init(config: SearchViewController.Config) {
+        self.config = config
+    }
+}

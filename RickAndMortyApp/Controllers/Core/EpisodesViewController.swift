@@ -45,7 +45,9 @@ final class EpisodesViewController: UIViewController {
     }
     
     @objc private func didTapSearch() {
-        
+        let viewControllet = SearchViewController(config: .init(type: .episode))
+        viewControllet.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewControllet, animated: true)
     }
     
     private func setupConstraints() {

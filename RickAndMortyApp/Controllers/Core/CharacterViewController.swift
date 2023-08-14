@@ -45,9 +45,9 @@ final class CharacterViewController: UIViewController {
     }
     
     @objc private func didTapSearch() {
-        let vc = SearchViewController(config: SearchViewController.Config(type: .character))
-        vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
+        let viewController = SearchViewController(config: SearchViewController.Config(type: .character))
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     private func setupConstraints() {

@@ -11,7 +11,7 @@ protocol LocationViewDelegate: AnyObject {
     func rmLocationView(_ locationView: LocationView, didSelect location: Location)
 }
 
-class LocationView: UIView {
+final class LocationView: UIView {
     
     // MARK: - Properties
     
