@@ -15,7 +15,7 @@ final class SearchView: UIView {
     
     // MARK: - Subviews
     
-    
+    private let noResultsView = NoSearchResultsView()
     
     // MARK: - Init
     
@@ -24,6 +24,7 @@ final class SearchView: UIView {
         super.init(frame: frame)
         translatesAutoresizingMaskIntoConstraints = false
         configureUI()
+        addConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +34,17 @@ final class SearchView: UIView {
     // MARK: - Helpers
     
     private func configureUI() {
-        backgroundColor = .red
+        backgroundColor = .systemBackground
+        addSubviews(noResultsView)
+    }
+    
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            noResultsView.heightAnchor.constraint(equalToConstant: 150),
+            noResultsView.widthAnchor.constraint(equalToConstant: 150),
+            noResultsView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            noResultsView.centerYAnchor.constraint(equalTo: centerYAnchor),
+        ])
     }
 }
 

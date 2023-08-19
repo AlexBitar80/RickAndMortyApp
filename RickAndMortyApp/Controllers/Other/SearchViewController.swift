@@ -32,12 +32,15 @@ final class SearchViewController: UIViewController {
         let type: `Type`
     }
     
-    private let config: Config
+    private let viewModel: SearchViewViewModel
+    private let searchView: SearchView
     
     // MARK: - Init
     
     init(config: Config) {
-        self.config = config
+        let viewModel = SearchViewViewModel(config: config)
+        self.viewModel = viewModel
+        self.searchView = SearchView(frame: .zero, viewModel: viewModel)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -51,13 +54,32 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
 
         configureUI()
-    }
-    
-    private func configureUI() {
-        view.backgroundColor = .systemBackground
-        title = config.type.title
+        addConstraints()
     }
 
     // MARK: - Helpers
 
+    private func configureUI() {
+        view.backgroundColor = .systemBackground
+        title = viewModel.config.type.title
+        
+        view.addSubview(searchView)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search",
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(didTapExecuteSearch))
+    }
+    
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            searchView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            searchView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+        ])
+    }
+    
+    @objc private func didTapExecuteSearch() {
+        
+    }
 }
