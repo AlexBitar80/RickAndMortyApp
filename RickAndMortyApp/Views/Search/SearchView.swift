@@ -15,6 +15,8 @@ final class SearchView: UIView {
     
     // MARK: - Subviews
     
+    private let searchInputView = SearchInputView()
+    
     private let noResultsView = NoSearchResultsView()
     
     // MARK: - Init
@@ -35,11 +37,22 @@ final class SearchView: UIView {
     
     private func configureUI() {
         backgroundColor = .systemBackground
-        addSubviews(noResultsView)
+        addSubviews(noResultsView, searchInputView)
+        searchInputView.configure(with: SearchInputViewViewModel(type: viewModel.config.type))
     }
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
+            
+            // - inputView
+            
+            searchInputView.topAnchor.constraint(equalTo: topAnchor),
+            searchInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            searchInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            searchInputView.heightAnchor.constraint(equalToConstant: 110),
+            
+            // - noResultsView
+            
             noResultsView.heightAnchor.constraint(equalToConstant: 150),
             noResultsView.widthAnchor.constraint(equalToConstant: 150),
             noResultsView.centerXAnchor.constraint(equalTo: centerXAnchor),
