@@ -7,6 +7,13 @@
 
 import UIKit
 
+// MARK: - SearchInputViewDelegate
+
+protocol SearchInputViewDelegate: AnyObject {
+    func searchInputView(_ input: SearchInputView,
+                         didSelect option: SearchInputViewViewModel.DynamicOption)
+}
+
 final class SearchInputView: UIView {
     
     // MARK: - Properties
@@ -14,8 +21,11 @@ final class SearchInputView: UIView {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.searchBarStyle = .minimal
         return searchBar
     }()
+    
+    weak var delegate: SearchInputViewDelegate?
     
     private var viewModel: SearchInputViewViewModel? {
         didSet {
@@ -50,10 +60,10 @@ final class SearchInputView: UIView {
     
     private func addConstraints() {
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            searchBar.heightAnchor.constraint(equalToConstant: 52)
+            searchBar.heightAnchor.constraint(equalToConstant: 58)
         ])
     }
     
@@ -63,9 +73,61 @@ final class SearchInputView: UIView {
         self.viewModel = viewModel
     }
     
+    private func createOptionStackView() -> UIStackView {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.distribution = .fillEqually
+        stackView.alignment = .center
+        addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            stackView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        return stackView
+    }
+    
     private func createOptionSelectionViews(options: [SearchInputViewViewModel.DynamicOption]) {
-        for option in options {
-            print(option.rawValue)
+        let stackView = createOptionStackView()
+        
+        for x in 0..<options.count {
+            let option = options[x]
+            let button = createButton(with: option, tag: x)
+            stackView.addArrangedSubview(button)
         }
+    }
+    
+    private func createButton(with option: SearchInputViewViewModel.DynamicOption, tag: Int) -> UIButton {
+        let buttonOptions = UIButton()
+        buttonOptions.backgroundColor = .secondarySystemFill
+        
+        buttonOptions.setAttributedTitle(NSAttributedString(string: option.rawValue, attributes: [
+            .font: UIFont.systemFont(ofSize: 18, weight: .medium),
+            .foregroundColor: UIColor.label
+        ]), for: .normal)
+        
+        buttonOptions.translatesAutoresizingMaskIntoConstraints = false
+        buttonOptions.tag = tag
+        buttonOptions.layer.cornerRadius = 6
+        buttonOptions.addTarget(self, action: #selector(didTapButtonOptions(_:)), for: .touchUpInside)
+        
+        return buttonOptions
+    }
+    
+    @objc private func didTapButtonOptions(_ sender: UIButton) {
+        guard let options = viewModel?.options else { return }
+        let tag = sender.tag
+        let selected = options[tag]
+        delegate?.searchInputView(self, didSelect: selected)
+    }
+    
+    func presentKeyboard() {
+        searchBar.becomeFirstResponder()
     }
 }

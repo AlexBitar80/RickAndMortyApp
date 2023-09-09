@@ -7,10 +7,17 @@
 
 import UIKit
 
+protocol SearchViewDelegate: AnyObject {
+    func searchView(_ view: SearchView,
+                    didSelectOption option: SearchInputViewViewModel.DynamicOption)
+}
+
 final class SearchView: UIView {
     
     // MARK: - Propeties
 
+    weak var delegate: SearchViewDelegate?
+    
     private let viewModel: SearchViewViewModel
     
     // MARK: - Subviews
@@ -39,6 +46,7 @@ final class SearchView: UIView {
         backgroundColor = .systemBackground
         addSubviews(noResultsView, searchInputView)
         searchInputView.configure(with: SearchInputViewViewModel(type: viewModel.config.type))
+        searchInputView.delegate = self
     }
     
     private func addConstraints() {
@@ -49,7 +57,7 @@ final class SearchView: UIView {
             searchInputView.topAnchor.constraint(equalTo: topAnchor),
             searchInputView.leadingAnchor.constraint(equalTo: leadingAnchor),
             searchInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            searchInputView.heightAnchor.constraint(equalToConstant: 110),
+            searchInputView.heightAnchor.constraint(equalToConstant: viewModel.config.type == .episode ? 55 : 110),
             
             // - noResultsView
             
@@ -58,6 +66,10 @@ final class SearchView: UIView {
             noResultsView.centerXAnchor.constraint(equalTo: centerXAnchor),
             noResultsView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
+    }
+    
+    func presentKeyboard() {
+        searchInputView.presentKeyboard()
     }
 }
 
@@ -75,5 +87,14 @@ extension SearchView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
         return cell
+    }
+}
+
+// MARK: - SearchInputViewDelegate
+
+extension SearchView: SearchInputViewDelegate {
+    func searchInputView(_ input: SearchInputView,
+                         didSelect option: SearchInputViewViewModel.DynamicOption) {
+        delegate?.searchView(self, didSelectOption: option)
     }
 }

@@ -55,6 +55,13 @@ final class SearchViewController: UIViewController {
 
         configureUI()
         addConstraints()
+        searchView.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        searchView.presentKeyboard()
     }
 
     // MARK: - Helpers
@@ -81,5 +88,14 @@ final class SearchViewController: UIViewController {
     
     @objc private func didTapExecuteSearch() {
         
+    }
+}
+
+// MARK: - SearchViewDelegate
+
+extension SearchViewController: SearchViewDelegate {
+    func searchView(_ view: SearchView,
+                    didSelectOption option: SearchInputViewViewModel.DynamicOption) {
+        print("Should present option picker")
     }
 }
