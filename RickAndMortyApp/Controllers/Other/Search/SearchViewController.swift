@@ -87,7 +87,7 @@ final class SearchViewController: UIViewController {
     }
     
     @objc private func didTapExecuteSearch() {
-        
+        viewModel.executeSearch()
     }
 }
 
@@ -96,6 +96,13 @@ final class SearchViewController: UIViewController {
 extension SearchViewController: SearchViewDelegate {
     func searchView(_ view: SearchView,
                     didSelectOption option: SearchInputViewViewModel.DynamicOption) {
-        print("Should present option picker")
+        let viewController = SearchOptionPickerViewController(option: option) { [weak self] selection in
+            DispatchQueue.main.async {
+                self?.viewModel.set(value: selection, for: option)
+            }
+        }
+        viewController.sheetPresentationController?.detents = [.medium()]
+        viewController.sheetPresentationController?.prefersGrabberVisible = true
+        present(viewController, animated: true)
     }
 }

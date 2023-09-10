@@ -59,6 +59,7 @@
 		CEE334432A89C76000A76AA6 /* NoSearchResultsViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE334422A89C76000A76AA6 /* NoSearchResultsViewViewModel.swift */; };
 		CEE334452A89C7AE00A76AA6 /* SearchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE334442A89C7AE00A76AA6 /* SearchInputView.swift */; };
 		CEE334472A89C7E900A76AA6 /* SearchInputViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE334462A89C7E900A76AA6 /* SearchInputViewViewModel.swift */; };
+		CEECA2B82AACF38C0095049E /* SearchOptionPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEECA2B72AACF38C0095049E /* SearchOptionPickerViewController.swift */; };
 		CEF0E91829687F1500C81FC9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0E91729687F1500C81FC9 /* AppDelegate.swift */; };
 		CEF0E91A29687F1500C81FC9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0E91929687F1500C81FC9 /* SceneDelegate.swift */; };
 		CEF0E91C29687F1500C81FC9 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0E91B29687F1500C81FC9 /* MainTabViewController.swift */; };
@@ -127,6 +128,7 @@
 		CEE334422A89C76000A76AA6 /* NoSearchResultsViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSearchResultsViewViewModel.swift; sourceTree = "<group>"; };
 		CEE334442A89C7AE00A76AA6 /* SearchInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInputView.swift; sourceTree = "<group>"; };
 		CEE334462A89C7E900A76AA6 /* SearchInputViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInputViewViewModel.swift; sourceTree = "<group>"; };
+		CEECA2B72AACF38C0095049E /* SearchOptionPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptionPickerViewController.swift; sourceTree = "<group>"; };
 		CEF0E91429687F1500C81FC9 /* RickAndMortyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMortyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF0E91729687F1500C81FC9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEF0E91929687F1500C81FC9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -305,7 +307,7 @@
 			children = (
 				CE9442612981B6E00067C65D /* CharacterDetailViewController.swift */,
 				CE6F4010299C29B90063FEB7 /* EpisodeDetailViewController.swift */,
-				CE434A7329B8296A00E78CD6 /* SearchViewController.swift */,
+				CEECA2B92AACF5750095049E /* Search */,
 				CE73646A2A76223100D66A2A /* LocationDetailViewController.swift */,
 			);
 			path = Other;
@@ -345,6 +347,15 @@
 				CEC4F51529BAD52E00A2FB93 /* EpisodeInfoCollectionViewCellViewModel.swift */,
 			);
 			name = EpisodeDetail;
+			sourceTree = "<group>";
+		};
+		CEECA2B92AACF5750095049E /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				CE434A7329B8296A00E78CD6 /* SearchViewController.swift */,
+				CEECA2B72AACF38C0095049E /* SearchOptionPickerViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		CEF0E90B29687F1500C81FC9 = {
@@ -529,6 +540,7 @@
 				CE39B7FF2A757CA7006AC72D /* LocationTableViewCellViewModel.swift in Sources */,
 				CE940C562A8852DA00A7F8DF /* LocationDetailViewViewModel.swift in Sources */,
 				CE940C542A88527300A7F8DF /* LocationDetailView.swift in Sources */,
+				CEECA2B82AACF38C0095049E /* SearchOptionPickerViewController.swift in Sources */,
 				CE519A162969D5A5006EB488 /* EpisodesViewController.swift in Sources */,
 				CE0E010129B12BF0007F5D19 /* EpisodeListView.swift in Sources */,
 				CE519A0F2969D42A006EB488 /* RMCharacter.swift in Sources */,
