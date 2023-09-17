@@ -47,6 +47,10 @@ final class SearchView: UIView {
         addSubviews(noResultsView, searchInputView)
         searchInputView.configure(with: SearchInputViewViewModel(type: viewModel.config.type))
         searchInputView.delegate = self
+        
+        viewModel.registerChageBlock { tuple in
+            self.searchInputView.update(option: tuple.0, value: tuple.1)
+        }
     }
     
     private func addConstraints() {

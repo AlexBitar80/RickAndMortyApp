@@ -17,6 +17,17 @@ final class SearchInputViewViewModel {
         case status = "Status"
         case gender = "Gender"
         case locationType = "Location Type"
+        
+        var choises: [String] {
+            switch self {
+            case .gender:
+                return ["male", "female", "genderless", "unknown"]
+            case .locationType:
+                return ["planet", "space station", "microverse", "tv", "resort", "fantasy town", "dream", "dimension", "unknown", "post-apocalyptic earth", "nuptia 4", "earth", "purge planet", "venzenulon 7", "bepis 9", "grumbo", "pluto", "earth (c-137]"]
+            case .status:
+                return ["alive", "dead", "unknown"]
+            }
+        }
     }
     
     // MARK: - Init
