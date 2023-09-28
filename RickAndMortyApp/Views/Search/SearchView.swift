@@ -51,6 +51,10 @@ final class SearchView: UIView {
         viewModel.registerChageBlock { tuple in
             self.searchInputView.update(option: tuple.0, value: tuple.1)
         }
+        
+        viewModel.registerSearchResultHandler { results in
+            print(results)
+        }
     }
     
     private func addConstraints() {
@@ -97,6 +101,16 @@ extension SearchView: UICollectionViewDataSource {
 // MARK: - SearchInputViewDelegate
 
 extension SearchView: SearchInputViewDelegate {
+    func searchInputViewDidTapSearchKeyboardButton(_ input: SearchInputView) {
+        viewModel.executeSearch()
+    }
+    
+    func searchInputView(_ input: SearchInputView, didChangeSearchText text: String?) {
+        if let text {
+            viewModel.set(query: text)
+        }
+    }
+    
     func searchInputView(_ input: SearchInputView,
                          didSelect option: SearchInputViewViewModel.DynamicOption) {
         delegate?.searchView(self, didSelectOption: option)
