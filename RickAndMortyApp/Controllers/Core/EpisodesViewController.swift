@@ -66,9 +66,7 @@ extension EpisodesViewController: EpisodeListViewDelegate {
     func mrEpisodeListView(_ characterListView: EpisodeListView,
                            didSelectEpisode episode: Episode) {
         
-        guard let episodeUrl = episode.url else { return }
-
-        let detailViewController = EpisodeDetailViewController(url: URL(string: episodeUrl))
+        let detailViewController = EpisodeDetailViewController(url: URL(string: episode.url))
         detailViewController.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailViewController, animated: true)
     }

@@ -15,7 +15,7 @@ final class CharacterDetailViewViewModel {
     private let character: RMCharacter
     
     public var episodes: [String] {
-        character.episode ?? [""]
+        character.episode
     }
     
     enum SectionType {
@@ -38,44 +38,30 @@ final class CharacterDetailViewViewModel {
     // MARK: - Helpers
     
     private func setupSections() {
-        guard let image = character.image,
-              let episodes = character.episode,
-              let statusText = character.status?.text,
-              let genderText = character.gender?.rawValue,
-              let typeText = character.type,
-              let speciesText = character.species,
-              let originText = character.origin?.name,
-              let locationText = character.location?.name,
-              let createdText = character.created
-        else { return }
-        
-        
         sections = [
-            .photo(viewModel: .init(imageUrl: URL(string: image))),
+            .photo(viewModel: .init(imageUrl: URL(string: character.image))),
             .information(viewModels: [
-                .init(type: .status, value: statusText),
-                .init(type: .gender, value: genderText),
-                .init(type: .type, value: typeText),
-                .init(type: .species, value: speciesText),
-                .init(type: .origin, value: originText),
-                .init(type: .location, value: locationText),
-                .init(type: .created, value: createdText),
-                .init(type: .episodeCount, value: "\(character.episode?.count ?? 0)"),
+                .init(type: .status, value: character.status.text),
+                .init(type: .gender, value: character.gender.rawValue),
+                .init(type: .type, value: character.type),
+                .init(type: .species, value: character.species),
+                .init(type: .origin, value: character.origin.name),
+                .init(type: .location, value: character.location.name),
+                .init(type: .created, value: character.created),
+                .init(type: .episodeCount, value: "\(character.episode.count)"),
             ]),
-            .episodes(viewModels: episodes.compactMap ({
+            .episodes(viewModels:  character.episode.compactMap ({
                 return CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: $0))
             }))
         ]
     }
     
     private var requestUrl: URL? {
-        guard let url = character.url else { return nil }
-        return URL(string: url)
+        return URL(string: character.url)
     }
     
     public var title: String {
-        guard let name = character.name else { return "" }
-        return name.uppercased()
+        return character.name.uppercased()
     }
     
     // MARK: - Layours

@@ -79,34 +79,19 @@ class SearchViewViewModel {
         var resultVM: SearchResultViewViewModel?
         
         if let characterResults = model as? GetAllCharacterResponse {
-            
-            guard let characters = characterResults.results else {
-                return
-            }
-            
-            resultVM = .characters(characters.compactMap({
+            resultVM = .characters( characterResults.results.compactMap({
                 
-                return CharacterCollectionViewCelltViewViewModel(characterName: $0.name!,
-                                                                 characterStatus: $0.status!,
-                                                                 characterImageUrl: URL(string: $0.image!))
+                return CharacterCollectionViewCelltViewViewModel(characterName: $0.name,
+                                                                 characterStatus: $0.status,
+                                                                 characterImageUrl: URL(string: $0.image))
             }))
         } else if let locationsResults = model as? GetAllLocationsResponse {
-            
-            guard let location = locationsResults.results else {
-                return
-            }
-            
-            resultVM = .locations(location.compactMap({
+            resultVM = .locations(locationsResults.results.compactMap({
                 return LocationTableViewCellViewModel(location: $0)
             }))
         } else if let episodesResults = model as? GetAllEpisodesResponse {
-            
-            guard let episodes = episodesResults.results else {
-                return
-            }
-            
-            resultVM = .episodes(episodes.compactMap({
-                return CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url!))
+            resultVM = .episodes(episodesResults.results.compactMap({
+                return CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url))
             }))
         }
         
