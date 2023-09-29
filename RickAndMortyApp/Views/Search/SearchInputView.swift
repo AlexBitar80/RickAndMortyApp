@@ -159,7 +159,7 @@ final class SearchInputView: UIView {
 extension SearchInputView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // Notify delegate of change text
-        print(searchText)
+//        print(searchText)
         delegate?.searchInputView(self, didChangeSearchText: searchText)
     }
     
