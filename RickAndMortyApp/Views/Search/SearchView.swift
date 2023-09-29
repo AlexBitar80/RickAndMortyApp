@@ -26,6 +26,8 @@ final class SearchView: UIView {
     
     private let noResultsView = NoSearchResultsView()
     
+    private let resultsView = SearchResultsView()
+    
     // MARK: - Init
     
     init(frame: CGRect, viewModel: SearchViewViewModel) {
@@ -44,17 +46,11 @@ final class SearchView: UIView {
     
     private func configureUI() {
         backgroundColor = .systemBackground
-        addSubviews(noResultsView, searchInputView)
+        addSubviews(resultsView, noResultsView, searchInputView)
         searchInputView.configure(with: SearchInputViewViewModel(type: viewModel.config.type))
         searchInputView.delegate = self
-        
-        viewModel.registerChageBlock { tuple in
-            self.searchInputView.update(option: tuple.0, value: tuple.1)
-        }
-        
-        viewModel.registerSearchResultHandler { results in
-            print(results)
-        }
+      
+        setUpHandlers(viewModel: viewModel)
     }
     
     private func addConstraints() {
@@ -67,6 +63,13 @@ final class SearchView: UIView {
             searchInputView.trailingAnchor.constraint(equalTo: trailingAnchor),
             searchInputView.heightAnchor.constraint(equalToConstant: viewModel.config.type == .episode ? 55 : 110),
             
+            // - resultsView
+            
+            resultsView.topAnchor.constraint(equalTo: searchInputView.bottomAnchor),
+            resultsView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            resultsView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            resultsView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
             // - noResultsView
             
             noResultsView.heightAnchor.constraint(equalToConstant: 150),
@@ -78,6 +81,27 @@ final class SearchView: UIView {
     
     func presentKeyboard() {
         searchInputView.presentKeyboard()
+    }
+    
+    private func setUpHandlers(viewModel: SearchViewViewModel) {
+        viewModel.registerChageBlock { [weak self] tuple in
+            self?.searchInputView.update(option: tuple.0, value: tuple.1)
+        }
+        
+        viewModel.registerSearchResultHandler { [weak self] results in
+            DispatchQueue.main.async {
+                self?.resultsView.configure(with: results)
+                self?.noResultsView.isHidden = true
+                self?.resultsView.isHidden = false
+            }
+        }
+        
+        viewModel.registerNoResulstHandler { [weak self] in
+            DispatchQueue.main.async {
+                self?.noResultsView.isHidden = false
+                self?.resultsView.isHidden = true
+            }
+        }
     }
 }
 

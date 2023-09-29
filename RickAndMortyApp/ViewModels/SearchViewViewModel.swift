@@ -20,6 +20,8 @@ class SearchViewViewModel {
     
     private var serchResultHandler: ((SearchResultViewViewModel) -> Void)?
     
+    private var noResultsHandler: (() -> Void)?
+    
     // MARK: - Init
     
     init(config: SearchViewController.Config) {
@@ -32,13 +34,15 @@ class SearchViewViewModel {
         self.serchResultHandler = block
     }
     
+    func registerNoResulstHandler(_ block: @escaping () -> Void) {
+        self.noResultsHandler = block
+    }
+    
     func set(query text: String) { 
         self.searchText = text
     }
     
     func executeSearch() {
-        
-        print("search text is: \(searchText)")
         
         var queryParams: [URLQueryItem] = [
             URLQueryItem(name: "name", value: searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed))
@@ -70,7 +74,7 @@ class SearchViewViewModel {
             case .success(let model):
                 self?.processSearchResults(model: model)
             case .failure:
-                break
+                self?.handlerNoResults()
             }
         }
     }
@@ -94,12 +98,17 @@ class SearchViewViewModel {
                 return CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url))
             }))
         }
-        
+                
         if let results = resultVM {
             self.serchResultHandler?(results)
         } else {
-            // fallback error
+            self.handlerNoResults()
         }
+    }
+    
+    private func handlerNoResults() {
+        print("No results")
+        noResultsHandler?()
     }
     
     func set(value: String, for option: SearchInputViewViewModel.DynamicOption) {
