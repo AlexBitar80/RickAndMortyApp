@@ -38,7 +38,7 @@ final class EpisodeListView: UIView {
         collectionView.isHidden = true
         collectionView.alpha = 0
         collectionView.register(CharacterEpisodeCollectionViewCell.self,
-                                forCellWithReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIndetifier)
+                                forCellWithReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIdetifier)
         
         collectionView.register(FooterLoadingCollectionReusableView.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
