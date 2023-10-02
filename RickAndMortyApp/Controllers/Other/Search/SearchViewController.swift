@@ -105,6 +105,12 @@ final class SearchViewController: UIViewController {
 // MARK: - SearchViewDelegate
 
 extension SearchViewController: SearchViewDelegate {
+    func searchView(_ view: SearchView, didSelectLocation location: Location) {
+        let viewController = LocationDetailViewController(location: location)
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     func searchView(_ view: SearchView,
                     didSelectOption option: SearchInputViewViewModel.DynamicOption) {
         let viewController = SearchOptionPickerViewController(option: option) { [weak self] selection in

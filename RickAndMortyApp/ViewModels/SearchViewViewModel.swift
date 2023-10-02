@@ -22,6 +22,8 @@ class SearchViewViewModel {
     
     private var noResultsHandler: (() -> Void)?
     
+    private var searchResultModel: Codable?
+    
     // MARK: - Init
     
     init(config: SearchViewController.Config) {
@@ -100,6 +102,7 @@ class SearchViewViewModel {
         }
                 
         if let results = resultVM {
+            self.searchResultModel = model
             self.serchResultHandler?(results)
         } else {
             self.handlerNoResults()
@@ -119,5 +122,10 @@ class SearchViewViewModel {
     
     func registerChageBlock(_ block: @escaping ((SearchInputViewViewModel.DynamicOption, String)) -> Void) {
         self.optionMapUpdateBlock = block
+    }
+    
+    func locationSearchResult(at index: Int) -> Location? {
+        guard let searchModel = searchResultModel as? GetAllLocationsResponse else { return nil }
+        return searchModel.results[index]
     }
 }
