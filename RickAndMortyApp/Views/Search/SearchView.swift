@@ -10,6 +10,9 @@ import UIKit
 protocol SearchViewDelegate: AnyObject {
     func searchView(_ view: SearchView,
                     didSelectOption option: SearchInputViewViewModel.DynamicOption)
+    
+    func searchView(_ view: SearchView,
+                    didSelectLocation location: Location)
 }
 
 final class SearchView: UIView {
@@ -49,6 +52,7 @@ final class SearchView: UIView {
         addSubviews(resultsView, noResultsView, searchInputView)
         searchInputView.configure(with: SearchInputViewViewModel(type: viewModel.config.type))
         searchInputView.delegate = self
+        resultsView.delegate = self
       
         setUpHandlers(viewModel: viewModel)
     }
@@ -103,6 +107,8 @@ final class SearchView: UIView {
             }
         }
     }
+    
+    
 }
 
 extension SearchView: UICollectionViewDelegate {
@@ -138,5 +144,16 @@ extension SearchView: SearchInputViewDelegate {
     func searchInputView(_ input: SearchInputView,
                          didSelect option: SearchInputViewViewModel.DynamicOption) {
         delegate?.searchView(self, didSelectOption: option)
+    }
+}
+
+// MARK: - SearchResultsViewDelegate
+
+extension SearchView: SearchResultsViewDelegate {
+    func searchResultsView(_ searchResultsView: SearchResultsView,
+                           didTapLocationAt index: Int) {
+        
+        guard let locationModel = viewModel.locationSearchResult(at: index) else { return }
+        delegate?.searchView(self, didSelectLocation: locationModel)
     }
 }
