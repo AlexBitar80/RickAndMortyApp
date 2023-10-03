@@ -10,7 +10,7 @@ import UIKit
 final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     
-    static let cellIndetifier = "CharacterEpisodeCollectionViewCell"
+    static let cellIdetifier = "CharacterEpisodeCollectionViewCell"
     
     private lazy var seasonLabel: UILabel = {
         let label = UILabel()

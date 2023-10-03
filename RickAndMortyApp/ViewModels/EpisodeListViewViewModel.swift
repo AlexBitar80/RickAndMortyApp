@@ -132,7 +132,7 @@ extension EpisodeListViewViewModel: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIndetifier,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIdetifier,
                                                             for: indexPath) as? CharacterEpisodeCollectionViewCell else { return UICollectionViewCell() }
         
         cell.configure(with: cellsViewModels[indexPath.row])
