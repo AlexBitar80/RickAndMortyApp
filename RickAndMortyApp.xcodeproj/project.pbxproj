@@ -17,6 +17,7 @@
 		CE05E38B2977A20A003C578B /* CharaterStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05E38A2977A20A003C578B /* CharaterStatus.swift */; };
 		CE0E010129B12BF0007F5D19 /* EpisodeListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0E010029B12BF0007F5D19 /* EpisodeListView.swift */; };
 		CE16BA00298746B700F4A193 /* AppImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE16B9FF298746B700F4A193 /* AppImageLoader.swift */; };
+		CE2255A42ACD08680038FCC1 /* TableLoadingFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2255A32ACD08680038FCC1 /* TableLoadingFooterView.swift */; };
 		CE39B7FC2A757C0B006AC72D /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39B7FB2A757C0B006AC72D /* LocationTableViewCell.swift */; };
 		CE39B7FF2A757CA7006AC72D /* LocationTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE39B7FE2A757CA7006AC72D /* LocationTableViewCellViewModel.swift */; };
 		CE434A7429B8296A00E78CD6 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE434A7329B8296A00E78CD6 /* SearchViewController.swift */; };
@@ -87,6 +88,7 @@
 		CE05E38A2977A20A003C578B /* CharaterStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharaterStatus.swift; sourceTree = "<group>"; };
 		CE0E010029B12BF0007F5D19 /* EpisodeListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeListView.swift; sourceTree = "<group>"; };
 		CE16B9FF298746B700F4A193 /* AppImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImageLoader.swift; sourceTree = "<group>"; };
+		CE2255A32ACD08680038FCC1 /* TableLoadingFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableLoadingFooterView.swift; sourceTree = "<group>"; };
 		CE39B7FB2A757C0B006AC72D /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		CE39B7FE2A757CA7006AC72D /* LocationTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		CE434A7329B8296A00E78CD6 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 			children = (
 				CE8035BB2A5E54DB001441F7 /* LocationView.swift */,
 				CE39B7FB2A757C0B006AC72D /* LocationTableViewCell.swift */,
+				CE2255A32ACD08680038FCC1 /* TableLoadingFooterView.swift */,
 			);
 			path = Location;
 			sourceTree = SOURCE_ROOT;
@@ -581,6 +584,7 @@
 				CE9442642981B7D50067C65D /* CharacterDetailView.swift in Sources */,
 				CE05E37B2977980C003C578B /* AppRequest.swift in Sources */,
 				CE73646B2A76223100D66A2A /* LocationDetailViewController.swift in Sources */,
+				CE2255A42ACD08680038FCC1 /* TableLoadingFooterView.swift in Sources */,
 				CE6F4011299C29B90063FEB7 /* EpisodeDetailViewController.swift in Sources */,
 				CE8035BE2A5EEF21001441F7 /* LocationViewViewModel.swift in Sources */,
 				CE4DB3C8297EDE3000CE4EB4 /* CharacterListViewViewModel.swift in Sources */,

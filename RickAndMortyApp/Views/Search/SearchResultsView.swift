@@ -75,9 +75,6 @@ final class SearchResultsView: UIView {
     private func configureUI() {
         isHidden = true
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .red
-       
-        
         addSubviews(tableView, collectionView)
     }
     
