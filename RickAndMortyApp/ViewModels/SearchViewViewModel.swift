@@ -18,7 +18,7 @@ class SearchViewViewModel {
     
     private var optionMapUpdateBlock: (((SearchInputViewViewModel.DynamicOption, String)) -> Void)?
     
-    private var serchResultHandler: ((SearchResultViewViewModel) -> Void)?
+    private var serchResultHandler: ((SearchResultViewModel) -> Void)?
     
     private var noResultsHandler: (() -> Void)?
     
@@ -32,7 +32,7 @@ class SearchViewViewModel {
     
     // MARK: - Helpers
     
-    func registerSearchResultHandler(_ block: @escaping (SearchResultViewViewModel) -> Void) {
+    func registerSearchResultHandler(_ block: @escaping (SearchResultViewModel) -> Void) {
         self.serchResultHandler = block
     }
     
@@ -82,8 +82,8 @@ class SearchViewViewModel {
     }
     
     private func processSearchResults(model: Codable) {
-        var resultVM: SearchResultViewViewModel?
-        
+        var resultVM: SearchResultType?
+        var nextUrl: String?
         if let characterResults = model as? GetAllCharacterResponse {
             resultVM = .characters( characterResults.results.compactMap({
                 
@@ -91,19 +91,26 @@ class SearchViewViewModel {
                                                                  characterStatus: $0.status,
                                                                  characterImageUrl: URL(string: $0.image))
             }))
+            
+            nextUrl = characterResults.info.next
         } else if let locationsResults = model as? GetAllLocationsResponse {
             resultVM = .locations(locationsResults.results.compactMap({
                 return LocationTableViewCellViewModel(location: $0)
             }))
+            
+            nextUrl = locationsResults.info.next
         } else if let episodesResults = model as? GetAllEpisodesResponse {
             resultVM = .episodes(episodesResults.results.compactMap({
                 return CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: $0.url))
             }))
+            
+            nextUrl = episodesResults.info.next
         }
                 
         if let results = resultVM {
             self.searchResultModel = model
-            self.serchResultHandler?(results)
+            let vm = SearchResultViewModel(result: results, next: nextUrl)
+            self.serchResultHandler?(vm)
         } else {
             self.handlerNoResults()
         }
