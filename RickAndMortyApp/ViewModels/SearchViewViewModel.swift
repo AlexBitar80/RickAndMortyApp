@@ -135,4 +135,14 @@ class SearchViewViewModel {
         guard let searchModel = searchResultModel as? GetAllLocationsResponse else { return nil }
         return searchModel.results[index]
     }
+    
+    func characterSearchResult(at index: Int) -> RMCharacter? {
+        guard let searchModel = searchResultModel as? GetAllCharacterResponse else { return nil }
+        return searchModel.results[index]
+    }
+    
+    func episodeSearchResult(at index: Int) -> Episode? {
+        guard let searchModel = searchResultModel as? GetAllEpisodesResponse else { return nil }
+        return searchModel.results[index]
+    }
 }

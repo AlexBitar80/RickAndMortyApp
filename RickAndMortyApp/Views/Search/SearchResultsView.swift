@@ -10,7 +10,12 @@ import UIKit
 // MARK: - SearchResultsViewDelegate
 
 protocol SearchResultsViewDelegate: AnyObject {
-    func searchResultsView(_ searchResultsView: SearchResultsView, didTapLocationAt index: Int)
+    func searchResultsView(_ searchResultsView: SearchResultsView,
+                           didTapLocationAt index: Int)
+    func searchResultsView(_ searchResultsView: SearchResultsView,
+                           didTapCharacterAt index: Int)
+    func searchResultsView(_ searchResultsView: SearchResultsView,
+                           didTapEpisodeAt index: Int)
 }
 
 final class SearchResultsView: UIView {
@@ -242,6 +247,17 @@ extension SearchResultsView: UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+        
+        guard let viewModel else { return }
+        
+        switch viewModel.result {
+        case .characters:
+            delegate?.searchResultsView(self, didTapCharacterAt: indexPath.row)
+        case .episodes:
+            delegate?.searchResultsView(self, didTapEpisodeAt: indexPath.row)
+        case .locations:
+            break
+        }
     }
 }
 

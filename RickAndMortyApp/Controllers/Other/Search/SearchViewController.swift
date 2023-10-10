@@ -105,6 +105,18 @@ final class SearchViewController: UIViewController {
 // MARK: - SearchViewDelegate
 
 extension SearchViewController: SearchViewDelegate {
+    func searchView(_ view: SearchView, didSelectCharacter character: RMCharacter) {
+        let viewController = CharacterDetailViewController(viewModel: .init(character: character))
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    func searchView(_ view: SearchView, didSelectEpisode episode: Episode) {
+        let viewController = EpisodeDetailViewController(url: URL(string: episode.url))
+        viewController.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
     func searchView(_ view: SearchView, didSelectLocation location: Location) {
         let viewController = LocationDetailViewController(location: location)
         viewController.navigationItem.largeTitleDisplayMode = .never

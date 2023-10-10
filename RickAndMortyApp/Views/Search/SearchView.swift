@@ -13,6 +13,12 @@ protocol SearchViewDelegate: AnyObject {
     
     func searchView(_ view: SearchView,
                     didSelectLocation location: Location)
+    
+    func searchView(_ view: SearchView,
+                    didSelectCharacter character: RMCharacter)
+    
+    func searchView(_ view: SearchView,
+                    didSelectEpisode episode: Episode)
 }
 
 final class SearchView: UIView {
@@ -155,5 +161,19 @@ extension SearchView: SearchResultsViewDelegate {
         
         guard let locationModel = viewModel.locationSearchResult(at: index) else { return }
         delegate?.searchView(self, didSelectLocation: locationModel)
+    }
+    
+    func searchResultsView(_ searchResultsView: SearchResultsView,
+                           didTapCharacterAt index: Int) {
+        
+        guard let characterModel = viewModel.characterSearchResult(at: index) else { return }
+        delegate?.searchView(self, didSelectCharacter: characterModel)
+    }
+    
+    func searchResultsView(_ searchResultsView: SearchResultsView,
+                           didTapEpisodeAt index: Int) {
+        
+        guard let episodeModel = viewModel.episodeSearchResult(at: index) else { return }
+        delegate?.searchView(self, didSelectEpisode: episodeModel)
     }
 }
