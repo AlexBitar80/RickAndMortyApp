@@ -8,8 +8,8 @@
 import Foundation
 
 struct GetAllEpisodesResponse: Codable {
-    let info: GetAllEpisodesResponseInfo?
-    let results: [Episode]?
+    let info: GetAllEpisodesResponseInfo
+    let results: [Episode]
 }
 
 struct GetAllEpisodesResponseInfo: Codable {

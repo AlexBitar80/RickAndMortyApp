@@ -70,7 +70,7 @@ final class CharacterDetailView: UIView {
         collectionView.register(CharacterInfoCollectionViewCell.self,
                                 forCellWithReuseIdentifier: CharacterInfoCollectionViewCell.cellIndetifier)
         collectionView.register(CharacterEpisodeCollectionViewCell.self,
-                                forCellWithReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIndetifier)
+                                forCellWithReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIdetifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }

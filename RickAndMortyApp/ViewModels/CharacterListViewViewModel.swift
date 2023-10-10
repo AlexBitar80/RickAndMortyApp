@@ -25,13 +25,9 @@ final class CharacterListViewViewModel: NSObject {
     private var characters: [RMCharacter] = [] {
         didSet {
             for character in characters {
-                guard let name = character.name,
-                      let status = character.status,
-                      let image = character.image else { return }
-                
-                let viewModel = CharacterCollectionViewCelltViewViewModel(characterName: name,
-                                                                          characterStatus: status,
-                                                                          characterImageUrl: URL(string: image))
+                let viewModel = CharacterCollectionViewCelltViewViewModel(characterName: character.name,
+                                                                          characterStatus: character.status,
+                                                                          characterImageUrl: URL(string: character.image ))
                 if !cellsViewModels.contains(viewModel) {
                     cellsViewModels.append(viewModel)
                 }
@@ -48,10 +44,8 @@ final class CharacterListViewViewModel: NSObject {
                                   expecting: GetAllCharacterResponse.self) { [weak self] result in
             switch result {
             case .success(let responseModel):
-                guard let result = responseModel.results,
-                      let info = responseModel.info else { return }
-                self?.characters = result
-                self?.apiInfo = info
+                self?.characters = responseModel.results
+                self?.apiInfo = responseModel.info
                 DispatchQueue.main.async {
                     self?.delegate?.didLoadInitialCharacters()
                 }
@@ -74,11 +68,12 @@ final class CharacterListViewViewModel: NSObject {
             guard let strongSelf = self else { return }
             switch resuslt {
             case .success(let responseModel):
-                guard let moreResults = responseModel.results,
-                      let info = responseModel.info else { return }
+                let moreResults = responseModel.results
+                let info = responseModel.info
+                strongSelf.apiInfo = info
                 
                 let originalCount = strongSelf.characters.count
-                let newCount = moreResults.count
+                let newCount = responseModel.results.count
                 let total = originalCount+newCount
                 let startingIndex = total - newCount
                 let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newCount)).compactMap({
@@ -86,7 +81,7 @@ final class CharacterListViewViewModel: NSObject {
                 })
                 
                 strongSelf.characters.append(contentsOf: moreResults)
-                strongSelf.apiInfo = info
+                strongSelf.apiInfo = responseModel.info
                 DispatchQueue.main.async {
                     strongSelf.delegate?.didLoadMoreCharacters(with: indexPathsToAdd)
                 }

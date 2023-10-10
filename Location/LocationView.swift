@@ -7,11 +7,13 @@
 
 import UIKit
 
+// MARK: - LocationViewDelegate
+
 protocol LocationViewDelegate: AnyObject {
     func rmLocationView(_ locationView: LocationView, didSelect location: Location)
 }
 
-class LocationView: UIView {
+final class LocationView: UIView {
     
     // MARK: - Properties
     
@@ -24,6 +26,13 @@ class LocationView: UIView {
             tableView.reloadData()
             UIView.animate(withDuration: 0.3) {
                 self.tableView.alpha = 1
+            }
+            
+            viewModel?.registerDidFinishPaginationBlock { [weak self] in
+                DispatchQueue.main.async {
+                    self?.tableView.tableFooterView = nil
+                    self?.tableView.reloadData()
+                }
             }
         }
     }
@@ -126,5 +135,42 @@ extension LocationView: UITableViewDataSource {
         cell.configure(with: cellViewModel)
         
         return cell
+    }
+}
+
+// MARK: - UIScrollViewDelegate
+
+extension LocationView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let viewModel = viewModel,
+              !viewModel.cellViewModels.isEmpty,
+              !viewModel.isLoadingMoreLocations,
+              viewModel.shouldShowLoadMoreIndicator else { return }
+        
+        Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { [weak self] t in
+            let offset = scrollView.contentOffset.y
+            let totalContentHeight = scrollView.contentSize.height
+            let totalScrollVieFixedHeight = scrollView.frame.size.height
+            
+            if offset >= (totalContentHeight - totalScrollVieFixedHeight - 120) {
+                DispatchQueue.main.async {
+                    self?.showLoadingIndicator()
+                }
+                
+                viewModel.fetchAdditionalLocations()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                    self?.tableView.reloadData()
+                })
+            }
+            
+            t.invalidate()
+        }
+    }
+    
+    private func showLoadingIndicator() {
+        let footer = TableLoadingFooterView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 100))
+        
+        tableView.tableFooterView = footer
     }
 }

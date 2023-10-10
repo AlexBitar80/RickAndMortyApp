@@ -41,7 +41,7 @@ final class LocationDetailViewViewModel {
     // MARK: - Helpers
     
     /// Public methods
-
+    
     public func fetchLocationData() {
         guard let url = endpointUrl, let request = AppRequest(url: url) else { return }
         
@@ -64,41 +64,37 @@ final class LocationDetailViewViewModel {
     /// Private methods
     
     private func createCellViewModels() {
-        guard let location = dataTuple?.location,
-              let characters = dataTuple?.characters,
-              let locationName = location.name,
-              let dimension = location.dimension,
-              let type = location.type,
-              let createdEpisode = location.created else { return }
+        guard let dataTuple = dataTuple else {
+            return
+        }
         
-        var createdString = createdEpisode
-        if let date = CharacterInfoCollectionViewCellViewModel.dateFormatter.date(from: createdString) {
+        let location = dataTuple.location
+        let characters = dataTuple.characters
+        
+        var createdString = location.created
+        if let date = CharacterInfoCollectionViewCellViewModel.dateFormatter.date(from: location.created) {
             createdString = CharacterInfoCollectionViewCellViewModel.shortDateFormatter.string(from: date)
         }
         
         cellViewModels = [
             .information(viewModels: [
-                .init(title: "Location Name", value: locationName),
-                .init(title: "Type", value: type),
-                .init(title: "Dimension", value: dimension),
-                .init(title: "Created", value: createdEpisode)
+                .init(title: "Location Name", value: location.name),
+                .init(title: "Type", value: location.type),
+                .init(title: "Dimension", value: location.dimension),
+                .init(title: "Created", value: createdString),
             ]),
             .characters(viewModels: characters.compactMap({ character in
-                guard let name = character.name,
-                      let status = character.status,
-                      let imageUrl = URL(string: character.image ?? "") else { return nil }
-                
-                return CharacterCollectionViewCelltViewViewModel(characterName: name,
-                                                                 characterStatus: status,
-                                                                 characterImageUrl: imageUrl)
+                return CharacterCollectionViewCelltViewViewModel(
+                    characterName: character.name,
+                    characterStatus: character.status,
+                    characterImageUrl: URL(string: character.image)
+                )
             }))
         ]
     }
     
     private func fetchRelatedCharacters(location: Location) {
-        guard let characters = location.residents else { return }
-        
-        let requests: [AppRequest] = characters.compactMap({
+        let requests: [AppRequest] = location.residents.compactMap({
             return URL(string: $0)
         }).compactMap({
             return AppRequest(url: $0)

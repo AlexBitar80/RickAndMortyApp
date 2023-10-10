@@ -51,7 +51,9 @@ final class LocationViewController: UIViewController {
     }
     
     @objc private func didTapSearch() {
-        
+        let viewControllet = SearchViewController(config: .init(type: .location))
+        viewControllet.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewControllet, animated: true)
     }
 }
 

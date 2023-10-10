@@ -41,7 +41,7 @@ final class EpisodeDetailViewViewModel {
     // MARK: - Helpers
     
     /// Public methods
-
+    
     public func fetchEpisodeData() {
         guard let url = endpointUrl, let request = AppRequest(url: url) else { return }
         
@@ -64,41 +64,36 @@ final class EpisodeDetailViewViewModel {
     /// Private methods
     
     private func createCellViewModels() {
-        guard let episode = dataTuple?.episode,
-              let characters = dataTuple?.characters,
-              let episodeName = episode.name,
-              let episodeAirData = episode.air_date,
-              let episodeSeason = episode.episode,
-              let createdEpisode = episode.created else { return }
+        guard let dataTuple = dataTuple else {
+            return
+        }
         
-        var createdString = createdEpisode
-        if let date = CharacterInfoCollectionViewCellViewModel.dateFormatter.date(from: createdEpisode) {
+        let episode = dataTuple.episode
+        
+        var createdString = episode.created
+        if let date = CharacterInfoCollectionViewCellViewModel.dateFormatter.date(from: episode.created) {
             createdString = CharacterInfoCollectionViewCellViewModel.shortDateFormatter.string(from: date)
         }
         
         cellViewModels = [
             .information(viewModels: [
-                .init(title: "Episode Name", value: episodeName),
-                .init(title: "Air Date", value: episodeAirData),
-                .init(title: "Episode", value: episodeSeason),
-                .init(title: "Created", value: createdString)
+                .init(title: "Episode Name", value: episode.name),
+                .init(title: "Air Date", value: episode.air_date),
+                .init(title: "Episode", value: episode.episode),
+                .init(title: "Created", value: createdString),
             ]),
-            .characters(viewModels: characters.compactMap({ character in
-                guard let name = character.name,
-                      let status = character.status,
-                      let imageUrl = URL(string: character.image ?? "") else { return nil }
-                
-                return CharacterCollectionViewCelltViewViewModel(characterName: name,
-                                                                 characterStatus: status,
-                                                                 characterImageUrl: imageUrl)
+            .characters(viewModels: dataTuple.characters.compactMap({ character in
+                return CharacterCollectionViewCelltViewViewModel(
+                    characterName: character.name,
+                    characterStatus: character.status,
+                    characterImageUrl: URL(string: character.image)
+                )
             }))
         ]
     }
     
     private func fetchRelatedCharacters(episode: Episode) {
-        guard let characters = episode.characters else { return }
-        
-        let requests: [AppRequest] = characters.compactMap({
+        let requests: [AppRequest] = episode.characters.compactMap({
             return URL(string: $0)
         }).compactMap({
             return AppRequest(url: $0)
