@@ -45,7 +45,9 @@ final class EpisodesViewController: UIViewController {
     }
     
     @objc private func didTapSearch() {
-        
+        let viewControllet = SearchViewController(config: .init(type: .episode))
+        viewControllet.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(viewControllet, animated: true)
     }
     
     private func setupConstraints() {
@@ -64,9 +66,7 @@ extension EpisodesViewController: EpisodeListViewDelegate {
     func mrEpisodeListView(_ characterListView: EpisodeListView,
                            didSelectEpisode episode: Episode) {
         
-        guard let episodeUrl = episode.url else { return }
-
-        let detailViewController = EpisodeDetailViewController(url: URL(string: episodeUrl))
+        let detailViewController = EpisodeDetailViewController(url: URL(string: episode.url))
         detailViewController.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(detailViewController, animated: true)
     }

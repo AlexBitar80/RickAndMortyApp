@@ -41,9 +41,7 @@ final class EpisodeListViewViewModel: NSObject {
     private var episodes: [Episode] = [] {
         didSet {
             for episode in episodes {
-                guard let episodeUrl = episode.url else { return }
-
-                let viewModel = CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: episodeUrl),
+                let viewModel = CharacterEpisodesCollectionViewCellViewModel(episodeDataUrl: URL(string: episode.url),
                                                                              borderColor: borderColors.randomElement() ?? .systemBlue)
                 if !cellsViewModels.contains(viewModel) {
                     cellsViewModels.append(viewModel)
@@ -52,20 +50,22 @@ final class EpisodeListViewViewModel: NSObject {
         }
     }
     
-
+    
     
     private var cellsViewModels: [CharacterEpisodesCollectionViewCellViewModel] = []
     
     private var apiInfo: GetAllEpisodesResponseInfo? = nil
     
     public func fetchEpisodes() {
-        AppService.shared.execute(.listEpisodesRequest,
-                                  expecting: GetAllEpisodesResponse.self) { [weak self] result in
+        AppService.shared.execute(
+            .listEpisodesRequest,
+            expecting: GetAllEpisodesResponse.self
+        ) { [weak self] result in
             switch result {
             case .success(let responseModel):
-                guard let result = responseModel.results,
-                      let info = responseModel.info else { return }
-                self?.episodes = result
+                let results = responseModel.results
+                let info = responseModel.info
+                self?.episodes = results
                 self?.apiInfo = info
                 DispatchQueue.main.async {
                     self?.delegate?.didLoadInitialEpisodes()
@@ -76,21 +76,25 @@ final class EpisodeListViewViewModel: NSObject {
         }
     }
     
-    public func fetchAddicitionalEpisodes(url: URL) {
-        guard !isLoadingMoreCharactes else { return }
-        
+    public func fetchAdditionalEpisodes(url: URL) {
+        guard !isLoadingMoreCharactes else {
+            return
+        }
         isLoadingMoreCharactes = true
         guard let request = AppRequest(url: url) else {
             isLoadingMoreCharactes = false
             return
         }
         
-        AppService.shared.execute(request, expecting: GetAllEpisodesResponse.self) { [weak self] resuslt in
-            guard let strongSelf = self else { return }
-            switch resuslt {
+        AppService.shared.execute(request, expecting: GetAllEpisodesResponse.self) { [weak self] result in
+            guard let strongSelf = self else {
+                return
+            }
+            switch result {
             case .success(let responseModel):
-                guard let moreResults = responseModel.results,
-                      let info = responseModel.info else { return }
+                let moreResults = responseModel.results
+                let info = responseModel.info
+                strongSelf.apiInfo = info
                 
                 let originalCount = strongSelf.episodes.count
                 let newCount = moreResults.count
@@ -99,16 +103,18 @@ final class EpisodeListViewViewModel: NSObject {
                 let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newCount)).compactMap({
                     return IndexPath(row: $0, section: 0)
                 })
-                
                 strongSelf.episodes.append(contentsOf: moreResults)
-                strongSelf.apiInfo = info
-                DispatchQueue.main.async {
-                    strongSelf.delegate?.didLoadMoreEpisodes(with: indexPathsToAdd)
-                }
                 
-                strongSelf.isLoadingMoreCharactes = false
-            case .failure:
-                strongSelf.isLoadingMoreCharactes = false
+                DispatchQueue.main.async {
+                    strongSelf.delegate?.didLoadMoreEpisodes(
+                        with: indexPathsToAdd
+                    )
+                    
+                    strongSelf.isLoadingMoreCharactes = false
+                }
+            case .failure(let failure):
+                print(String(describing: failure))
+                self?.isLoadingMoreCharactes = false
             }
         }
     }
@@ -126,9 +132,9 @@ extension EpisodeListViewViewModel: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIndetifier,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterEpisodeCollectionViewCell.cellIdetifier,
                                                             for: indexPath) as? CharacterEpisodeCollectionViewCell else { return UICollectionViewCell() }
-
+        
         cell.configure(with: cellsViewModels[indexPath.row])
         return cell
     }
@@ -195,7 +201,7 @@ extension EpisodeListViewViewModel: UIScrollViewDelegate {
             let totalScrollVieFixedHeight = scrollView.frame.size.height
             
             if offset >= (totalContentHeight - totalScrollVieFixedHeight - 120) {
-                self?.fetchAddicitionalEpisodes(url: url)
+                self?.fetchAdditionalEpisodes(url: url)
             }
             
             t.invalidate()

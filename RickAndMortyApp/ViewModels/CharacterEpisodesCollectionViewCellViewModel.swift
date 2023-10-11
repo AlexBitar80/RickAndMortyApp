@@ -8,9 +8,9 @@
 import UIKit
 
 protocol EpisodeDataRender {
-    var name: String? { get }
-    var air_date: String? { get }
-    var episode: String? { get }
+    var name: String { get }
+    var air_date: String { get }
+    var episode: String { get }
 }
 
 final class CharacterEpisodesCollectionViewCellViewModel: Hashable, Equatable {

@@ -10,7 +10,7 @@ import UIKit
 final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     
-    static let cellIndetifier = "CharacterEpisodeCollectionViewCell"
+    static let cellIdetifier = "CharacterEpisodeCollectionViewCell"
     
     private lazy var seasonLabel: UILabel = {
         let label = UILabel()
@@ -92,13 +92,9 @@ final class CharacterEpisodeCollectionViewCell: UICollectionViewCell {
     public func configure(with viewModel: CharacterEpisodesCollectionViewCellViewModel) {
         viewModel.registerForData { [weak self] data in
             
-            guard let episode = data.episode,
-                  let airDate = data.air_date,
-                  let name = data.name else { return }
-            
-            self?.seasonLabel.text = "Episode: \(episode)"
-            self?.nameLabel.text = name
-            self?.airDateLabel.text = "Aired on \(airDate)"
+            self?.seasonLabel.text = "Episode: \(data.episode)"
+            self?.nameLabel.text = data.name
+            self?.airDateLabel.text = "Aired on \(data.air_date)"
         }
         
         viewModel.fetchEpisode()

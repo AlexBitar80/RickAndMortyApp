@@ -1,25 +1,25 @@
 //
-//  EpisodeDetailViewViewModel.swift
+//  LocationDetailViewViewModel.swift
 //  RickAndMortyApp
 //
-//  Created by João Alexandre Bitar on 24/02/23.
+//  Created by João Alexandre Bitar on 12/08/23.
 //
 
 import Foundation
 
-protocol EpisodeDetailViewViewModelDelegate: AnyObject {
-    func didFetchEpisodeDetails()
+protocol LocationDetailViewViewModelDelegate: AnyObject {
+    func didFetchLocationDetails()
 }
 
-final class EpisodeDetailViewViewModel {
+final class LocationDetailViewViewModel {
     // MARK: - Properties
     
     private let endpointUrl: URL?
     
-    private var dataTuple: (episode: Episode, characters: [RMCharacter])? {
+    private var dataTuple: (location: Location, characters: [RMCharacter])? {
         didSet {
             createCellViewModels()
-            delegate?.didFetchEpisodeDetails()
+            delegate?.didFetchLocationDetails()
         }
     }
     
@@ -28,7 +28,7 @@ final class EpisodeDetailViewViewModel {
         case characters(viewModels: [CharacterCollectionViewCelltViewViewModel])
     }
     
-    public weak var delegate: EpisodeDetailViewViewModelDelegate?
+    public weak var delegate: LocationDetailViewViewModelDelegate?
     
     public private(set) var cellViewModels: [SectionType] = []
     
@@ -42,13 +42,13 @@ final class EpisodeDetailViewViewModel {
     
     /// Public methods
     
-    public func fetchEpisodeData() {
+    public func fetchLocationData() {
         guard let url = endpointUrl, let request = AppRequest(url: url) else { return }
         
-        AppService.shared.execute(request, expecting: Episode.self) { [weak self] result in
+        AppService.shared.execute(request, expecting: Location.self) { [weak self] result in
             switch result {
             case .success(let model):
-                self?.fetchRelatedCharacters(episode: model)
+                self?.fetchRelatedCharacters(location: model)
             case .failure:
                 break
             }
@@ -68,21 +68,22 @@ final class EpisodeDetailViewViewModel {
             return
         }
         
-        let episode = dataTuple.episode
+        let location = dataTuple.location
+        let characters = dataTuple.characters
         
-        var createdString = episode.created
-        if let date = CharacterInfoCollectionViewCellViewModel.dateFormatter.date(from: episode.created) {
+        var createdString = location.created
+        if let date = CharacterInfoCollectionViewCellViewModel.dateFormatter.date(from: location.created) {
             createdString = CharacterInfoCollectionViewCellViewModel.shortDateFormatter.string(from: date)
         }
         
         cellViewModels = [
             .information(viewModels: [
-                .init(title: "Episode Name", value: episode.name),
-                .init(title: "Air Date", value: episode.air_date),
-                .init(title: "Episode", value: episode.episode),
+                .init(title: "Location Name", value: location.name),
+                .init(title: "Type", value: location.type),
+                .init(title: "Dimension", value: location.dimension),
                 .init(title: "Created", value: createdString),
             ]),
-            .characters(viewModels: dataTuple.characters.compactMap({ character in
+            .characters(viewModels: characters.compactMap({ character in
                 return CharacterCollectionViewCelltViewViewModel(
                     characterName: character.name,
                     characterStatus: character.status,
@@ -92,8 +93,8 @@ final class EpisodeDetailViewViewModel {
         ]
     }
     
-    private func fetchRelatedCharacters(episode: Episode) {
-        let requests: [AppRequest] = episode.characters.compactMap({
+    private func fetchRelatedCharacters(location: Location) {
+        let requests: [AppRequest] = location.residents.compactMap({
             return URL(string: $0)
         }).compactMap({
             return AppRequest(url: $0)
@@ -119,7 +120,7 @@ final class EpisodeDetailViewViewModel {
         
         group.notify(queue: .main) {
             self.dataTuple = (
-                episode: episode,
+                location: location,
                 characters: charactersCount
             )
         }
