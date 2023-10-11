@@ -42,7 +42,7 @@ final class SearchResultsView: UIView {
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -285,7 +285,7 @@ extension SearchResultsView: UIScrollViewDelegate {
             
             
             if offset >= (totalContentHeight - totalScrollVieFixedHeight - 120) {
-                viewModel.fetchAdditionalResults { [weak self] newResult in
+                viewModel.fetchAdditionalResults { [weak self] newResults in
                     guard let strongSelf = self else {
                         return
                     }
@@ -294,14 +294,14 @@ extension SearchResultsView: UIScrollViewDelegate {
                         strongSelf.tableView.tableFooterView = nil
                         
                         let originalCount = strongSelf.collectionViewCellViewModels.count
-                        let newCount = (newResult.count - originalCount)
+                        let newCount = (newResults.count - originalCount)
                         let total = originalCount + newCount
                         let startingIndex = total - newCount
                         let indexPathsToAdd: [IndexPath] = Array(startingIndex..<(startingIndex+newCount)).compactMap({
                             return IndexPath(row: $0, section: 0)
                         })
+                        strongSelf.collectionViewCellViewModels = newResults
                         strongSelf.collectionView.insertItems(at: indexPathsToAdd)
-                        strongSelf.collectionViewCellViewModels = newResult
                     }
                 }
             }
