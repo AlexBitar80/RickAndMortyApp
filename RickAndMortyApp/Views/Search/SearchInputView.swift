@@ -72,7 +72,6 @@ final class SearchInputView: UIView {
             searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
-            searchBar.heightAnchor.constraint(equalToConstant: 58)
         ])
     }
     
@@ -158,13 +157,16 @@ final class SearchInputView: UIView {
 
 extension SearchInputView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        // Notify delegate of change text
-//        print(searchText)
         delegate?.searchInputView(self, didChangeSearchText: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         // Notify that search button was tapped
+        searchBar.resignFirstResponder()
+        delegate?.searchInputViewDidTapSearchKeyboardButton(self)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         delegate?.searchInputViewDidTapSearchKeyboardButton(self)
     }

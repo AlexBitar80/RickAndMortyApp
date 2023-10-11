@@ -99,6 +99,7 @@ final class SearchViewController: UIViewController {
     
     @objc private func didTapExecuteSearch() {
         viewModel.executeSearch()
+        view.endEditing(true)
     }
 }
 
