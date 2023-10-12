@@ -407,6 +407,7 @@
 				CE519A0B2969D323006EB488 /* Resources */,
 				CEF0E92229687F1600C81FC9 /* LaunchScreen.storyboard */,
 				CEF0E92529687F1600C81FC9 /* Info.plist */,
+				CE2575B32AD8769300346CE7 /* README.md */,
 			);
 			path = RickAndMortyApp;
 			sourceTree = "<group>";
