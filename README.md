@@ -5,6 +5,8 @@
     </h1>
 </center>
 
+![imagem-preview-do-app](https://github.com/AlexBitar80/RickAndMortyApp/blob/docs/readme/RickAndMortyApp/Docs/app-preview.png)
+
 ## Visão geral do App
 
 - Escrito em Swift
